@@ -1,7 +1,7 @@
 package designPattern;
 
 /**
- * Ãiº~¦¡, ½uµ{¦w¥ş ¦ı®Ä²v«Ü§C, 99%ªº®É­Ô¥Î¤£¨ì synchronize
+ * æ‡¶æ¼¢å¼, lazy loading(Y), thread safe(Y)
  * 
  * @author steven
  *
@@ -23,7 +23,8 @@ public class Singleton {
 }
 
 /**
- *  ¾jº~¦¡ ½uµ{¦w¥ş, ¨S¦³ lazy loading, ®e©ö²£¥Í©U§£¹ï¹³, ±ÀÂË¨Ï¥Î
+ * é¤“æ¼¢å¼, lazy loading(N), thread safe(Y)
+ * 
  * @author steven
  *
  */
@@ -35,5 +36,28 @@ class Singleton2 {
 
 	public static Singleton2 getInstance2() {
 		return instance2;
+	}
+}
+
+/**
+ * DCL, double check locking
+ * lazy loading (Y),
+ * thread safe (Y)
+ * @author steven
+ *
+ */
+class Singleton3 {
+	private volatile static Singleton3 instance3 = new Singleton3();
+
+	private Singleton3() {
+	}
+
+	public static Singleton3 getInstance() {
+		if (instance3 == null) {
+			synchronized (Singleton3.class) {
+				instance3 = new Singleton3();
+			}
+		}
+		return instance3;
 	}
 }
