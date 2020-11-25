@@ -58,6 +58,11 @@ class LinkedListCycle {
 		head = new_node;
 	}
 
+	/**
+	 *  find  out if a LinkedList have a loop
+	 *  快慢指針, 快指針一次走二步, 慢指針走一步, 如果快指針追到慢指針, 代表這個 LinkedList 有環
+	 * @return
+	 */
 	int detectLoop() {
 		Node slow_p = head, fast_p = head;
 		while (slow_p != null && fast_p != null && fast_p.next != null) {
@@ -84,16 +89,16 @@ class LinkedListCycle {
 
 	/* Drier program to test above functions */
 	public static void main(String args[]) {
-		LinkedListCycle llist = new LinkedListCycle();
+		LinkedListCycle lList = new LinkedListCycle();
 
-		llist.push(20);
-		llist.push(4);
-		llist.push(15);
-		llist.push(10);
+		lList.push(20);
+		lList.push(4);
+		lList.push(15);
+		lList.push(10);
 
 		/* Create loop for testing */
-		llist.head.next.next.next.next = llist.head;
+		lList.head.next.next.next.next = lList.head;
 
-		llist.detectLoop();
+		lList.detectLoop();
 	}
 }

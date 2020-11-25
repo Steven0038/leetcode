@@ -1,7 +1,11 @@
 package _2.leetcode_string;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Given a string, find the first non-repeating character in it and return it's
@@ -18,14 +22,14 @@ import java.util.Map;
 public class FirstUniqChar {
 
 	public static void main(String[] args) {
-		String s = "cc";
+		String s = "loveleetcode";
 		System.out.print(firstUniqChar(s));
 	}
 
-	private static int firstUniqChar(String s) {
+	private static int firstUniqChar(@NotNull String s) {
 		// String to char array
 		// LinkedHashMap's key is orderd by input sequence
-		Map<Character, Integer> map = new LinkedHashMap<Character, Integer>();
+		Map<Character, Integer> map = new LinkedHashMap<>();
 		char[] charArr = s.toCharArray();
 		// use Map<char, count> to iterate all String
 		for (char c : charArr) {
@@ -54,21 +58,46 @@ public class FirstUniqChar {
 
 		return -1;
 	}
-	
-    // public int firstUniqChar(String s) {
-    //     Map<Character, Integer> map = new LinkedHashMap<>();
-    //     Set<Character> set = new HashSet<>();
-    //     for (int i = 0; i < s.length(); i++) {
-    //         if (set.contains(s.charAt(i))) {
-    //             if (map.get(s.charAt(i)) != null) {
-    //                 map.remove(s.charAt(i));
-    //             }
-    //         } else {
-    //             map.put(s.charAt(i), i);
-    //             set.add(s.charAt(i));
-    //         }
-    //     }
-    //     return map.size() == 0 ? -1 : map.entrySet().iterator().next().getValue();
-    // }
 
+	private static int firstUniqChar1(@NotNull String s) {
+		// new a Map to store <character, count>
+		Map<Character, Integer> map = new LinkedHashMap<>();
+		char[] charArr = s.toCharArray();
+		for (Character c : charArr) {
+			if (map.containsKey(c)) {
+				map.put(c, map.get(c) + 1);
+			} else {
+				map.put(c, 1);
+			}
+		}
+
+		// find the first character which value count is 1
+		int index = 0;
+		for (Character c : charArr) {
+			if (map.get(c) == 1) {
+				return index;
+			} else {
+				index += 1;
+			}
+		}
+
+		return -1;
+	}
+
+
+	 public int firstUniqChar2(String s) {
+         Map<Character, Integer> map = new LinkedHashMap<>();
+         Set<Character> set = new HashSet<>();
+         for (int i = 0; i < s.length(); i++) {
+             if (set.contains(s.charAt(i))) {
+                 if (map.get(s.charAt(i)) != null) {
+                     map.remove(s.charAt(i));
+                 }
+             } else {
+                 map.put(s.charAt(i), i);
+                 set.add(s.charAt(i));
+             }
+         }
+         return map.size() == 0 ? -1 : map.entrySet().iterator().next().getValue();
+     }
 }
