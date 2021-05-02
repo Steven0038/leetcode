@@ -31,7 +31,7 @@ package _3.leetcode_linkedList;
  */
 //Java program to detect loop in a linked list 
 class LinkedListCycle {
-	Node head; // head of list
+	private Node head; // head of list
 
 	/* Linked list Node */
 	class Node {
@@ -45,7 +45,7 @@ class LinkedListCycle {
 	}
 
 	/* Inserts a new Node at front of the list. */
-	public void push(int new_data) {
+	private void push(int new_data) {
 		/*
 		 * 1 & 2: Allocate the Node & Put in the data
 		 */
@@ -61,9 +61,9 @@ class LinkedListCycle {
 	/**
 	 *  find  out if a LinkedList have a loop
 	 *  快慢指針, 快指針一次走二步, 慢指針走一步, 如果快指針追到慢指針, 代表這個 LinkedList 有環
-	 * @return
+	 * @return  int 1 have loop, 0 not found
 	 */
-	int detectLoop() {
+	private int detectLoop() {
 		Node slow_p = head, fast_p = head;
 		while (slow_p != null && fast_p != null && fast_p.next != null) {
 			slow_p = slow_p.next;
@@ -87,6 +87,14 @@ class LinkedListCycle {
         return false;*/
 	}
 
+	private static void printNodeValue(LinkedListCycle lList) {
+		Node head = lList.head;
+		while (head != null) {
+			System.out.println(head.data + " ");
+			head = head.next;
+		}
+	}
+
 	/* Drier program to test above functions */
 	public static void main(String args[]) {
 		LinkedListCycle lList = new LinkedListCycle();
@@ -95,6 +103,8 @@ class LinkedListCycle {
 		lList.push(4);
 		lList.push(15);
 		lList.push(10);
+
+		printNodeValue(lList); // 10->15->4->20
 
 		/* Create loop for testing */
 		lList.head.next.next.next.next = lList.head;
