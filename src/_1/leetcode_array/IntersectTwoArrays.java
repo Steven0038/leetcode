@@ -42,17 +42,13 @@ public class IntersectTwoArrays {
         Map<Integer, Integer> numMap = new HashMap<>();
         ArrayList<Integer> result = new ArrayList<>();
         // add nums1's element to Map's key and count the times in value
-//		for (int num1 : nums1) {
-//			if (numMap.containsKey(num1)) {
-//				numMap.put(num1, numMap.get(num1) + 1);
-//			} else {
-//				numMap.put(num1, 1);
-//			}
-//		}
-
-        for (int num : nums1) {
-            numMap.put(num, numMap.getOrDefault(num, 0) + 1);
-        }
+		for (int num1 : nums1) {
+			if (numMap.containsKey(num1)) {
+				numMap.put(num1, numMap.get(num1) + 1);
+			} else {
+				numMap.put(num1, 1);
+			}
+		}
 
         // if nums2 contains the same element, add to the result
         for (int j : nums2) {
@@ -70,5 +66,34 @@ public class IntersectTwoArrays {
         }
 
         return retArr;
+    }
+
+    public int[] intersect2(int[] nums1, int[] nums2) {
+        Map<Integer, Integer> numMap = new HashMap<>();
+        ArrayList<Integer> result = new ArrayList<>();
+
+        // add nums1's element to Map's key and count the times in value
+        for (int num : nums1) {
+            numMap.put(num, numMap.getOrDefault(num, 0) + 1);
+        }
+
+        // if nums2 contains the same element, add to the result
+        for (int j : nums2) {
+            if (numMap.containsKey(j) && numMap.get(j) > 0) {
+                result.add(j);
+                numMap.put(j, numMap.get(j) - 1); // reduce intersect count
+            }
+        }
+
+        numMap.forEach( (k, v)->
+                System.out.println("key: " + k + "value: " + v)
+        );
+
+        result.forEach( r ->
+                System.out.println("result: " + r)
+        );
+
+        // copy the result to arr
+        return result.stream().mapToInt(Number::intValue).toArray();
     }
 }
