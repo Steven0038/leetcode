@@ -55,8 +55,9 @@ public class StringToInteger {
 
 	public static void main(String[] args) {
 		StringToInteger st = new StringToInteger();
-		String str = "   -42";
-		
+//		String str = "   -42";
+		String str = "   ";
+
 		System.out.print(st.myAtoi(str));
 	}
 
@@ -67,7 +68,10 @@ public class StringToInteger {
 		}
 		
 		str = str.trim();// trim the front space
-		
+
+		System.out.println(" 123: " + str.equals(""));
+		System.out.println(" 456: " + str.isEmpty());
+
 		if (str.equals("")) {
 			return 0;
 		}
