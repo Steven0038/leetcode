@@ -1,6 +1,5 @@
 package _2.leetcode_string;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -26,7 +25,7 @@ public class FirstUniqChar {
 		System.out.print(firstUniqChar(s));
 	}
 
-	private static int firstUniqChar(@NotNull String s) {
+	private static int firstUniqChar(String s) {
 		// String to char array
 		// LinkedHashMap's key is orderd by input sequence
 		Map<Character, Integer> map = new LinkedHashMap<>();
@@ -59,7 +58,7 @@ public class FirstUniqChar {
 		return -1;
 	}
 
-	private static int firstUniqChar1(@NotNull String s) {
+	private static int firstUniqChar1(String s) {
 		// new a Map to store <character, count>
 		Map<Character, Integer> map = new LinkedHashMap<>();
 		char[] charArr = s.toCharArray();
