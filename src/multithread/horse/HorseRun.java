@@ -1,4 +1,4 @@
-package multithread;
+package multithread.horse;
 
 public class HorseRun {
 

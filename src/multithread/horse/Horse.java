@@ -1,4 +1,4 @@
-package multithread;
+package multithread.horse;
 
 public class Horse implements Runnable {
     volatile static int rankh = 1;    // 利用 static 使其他 Horse 共用此變數(名次)
