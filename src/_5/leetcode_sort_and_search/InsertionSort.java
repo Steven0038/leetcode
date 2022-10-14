@@ -2,49 +2,48 @@ package _5.leetcode_sort_and_search;
 
 /**
  * Best O(n), AVG(n^2), WOST(n^2)
- * @author steven
  *
+ * @author steven
  */
 public class InsertionSort {
 
-	public static void main(String[] args) {
-		int arr[] = { 12, 11, 13, 5, 6 };
+    public static void main(String[] args) {
+        int[] arr = {12, 11, 13, 5, 6};
 
-		Is ob = new Is();
-		ob.sort(arr);
+        Is ob = new Is();
+        ob.sort(arr);
 
-		printArray(arr);
-	}
+        printArray(arr);
+    }
 
-	/* A utility function to print array of size n */
-	static void printArray(int arr[]) {
-		int n = arr.length;
-		for (int i = 0; i < n; ++i)
-			System.out.print(arr[i] + " ");
+    /* A utility function to print array of size n */
+    static void printArray(int[] arr) {
+        int n = arr.length;
+        for (int j : arr) System.out.print(j + " ");
 
-		System.out.println();
-	}
+        System.out.println();
+    }
 
 }
 
 class Is {
 
-	/* Function to sort array using insertion sort */
-	public void sort(int arr[]) {
-		// int arr[] = { 12, 11, 13, 5, 6 };
-		for (int i = 1; i < arr.length; ++i) {
-			int key = arr[i];//¤@¶i¤J i=1,±q11¶}©l¤ñ,¤ñ¨ìarr[4],¤]´N¬O6
-			int j = i - 1;
+    /* Function to sort array using insertion sort */
+    public void sort(int[] arr) {
+        // int arr[] = { 12, 11, 13, 5, 6 };
+        for (int i = 1; i < arr.length; ++i) {
+            int key = arr[i];//ä¸€é€²å…¥ i=1,å¾11é–‹å§‹æ¯”,æ¯”åˆ°arr[4],ä¹Ÿå°±æ˜¯6
+            int j = i - 1;
 
-			/*
-			 * Move elements of arr[0..i-1], that are greater than key, to one position
-			 * ahead of their current position
-			 */
-			while (j >= 0 && arr[j] > key) {
-				arr[j + 1] = arr[j];// ¥u­nµo²{ key «e¤@­Ó¤¸¯À¤ñkey¤j, ´N²¾¨ì­ì¥» key ªº¦ì¸m(j+1), j ´N¬O keyªº¦ì¸m -1(i-1)
-				j--; // while ±±¨î±ø¥ó, j ©¹«e²¾ Ä~Äò¦V«eÀË¬d
-			}
-			arr[j + 1] = key;// ª½¨ì j ²¾¨ì array ³Ì«e­±©ÎªÌµo²{¨S¦³¤ñ key ¤j¤F, ´N§â key ©ñ¦^¥h(¦pªG¨ì©³j·|¬O-1)
-		}
-	}
+            /*
+             * Move elements of arr[0..i-1], that are greater than key, to one position
+             * ahead of their current position
+             */
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j]; // åªè¦ç™¼ç¾ key å‰ä¸€å€‹å…ƒç´ æ¯”keyå¤§, å°±ç§»åˆ°åŸæœ¬ key çš„ä½ç½®(j+1), j å°±æ˜¯ keyçš„ä½ç½® -1(i-1)
+                j--; // while æ§åˆ¶æ¢ä»¶, j å¾€å‰ç§» ç¹¼çºŒå‘å‰æª¢æŸ¥
+            }
+            arr[j + 1] = key; // ç›´åˆ° j ç§»åˆ° array æœ€å‰é¢æˆ–è€…ç™¼ç¾æ²’æœ‰æ¯” key å¤§äº†, å°±æŠŠ key æ”¾å›å»(å¦‚æœåˆ°åº•jæœƒæ˜¯-1)
+        }
+    }
 }

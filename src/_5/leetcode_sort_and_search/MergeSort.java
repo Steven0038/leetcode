@@ -9,16 +9,16 @@ class MergeSort {
 	// Merges two subarrays of arr[].
 	// First subarray is arr[l..m]
 	// Second subarray is arr[m+1..r]
-	void merge(int arr[], int l, int m, int r) {//int arr[] = { 12, 11, 13, 5, 6, 7 };
+	void merge(int[] arr, int l, int m, int r) {//int arr[] = { 12, 11, 13, 5, 6, 7 };
 		// Find sizes of two subarrays to be merged
 		int n1 = m - l + 1;
-		int n2 = r - m; // ¤£¥]§t m
+		int n2 = r - m; // ä¸åŒ…å« m
 
 		/* Create temp arrays */
-		int L[] = new int[n1];
-		int R[] = new int[n2];
+		int[] L = new int[n1];
+		int[] R = new int[n2];
 
-		/* Copy data to temp arrays, ¥Î¤¤¤ßÂI¤À¬°¥ª¥k¤G­Ó array*/
+		/* Copy data to temp arrays, ç”¨ä¸­å¿ƒé»åˆ†ç‚ºå·¦å³äºŒå€‹ array*/
 		for (int i = 0; i < n1; ++i)
 			L[i] = arr[l + i];
 		for (int j = 0; j < n2; ++j)
@@ -31,7 +31,7 @@ class MergeSort {
 
 		// Initial index of merged subarry array
 		int k = l;
-		while (i < n1 && j < n2) {//¦b±q¤G­Ó array ¦X¨Ö¨ì²Ä¤T­Óªº¹Lµ{¤¤, ´N¦³¿ï¾Ü¤pªº¥ı´¡¤Jªº¹Lµ{, §Y¬°±Æ§Ç
+		while (i < n1 && j < n2) { //åœ¨å¾äºŒå€‹ array åˆä½µåˆ°ç¬¬ä¸‰å€‹çš„éç¨‹ä¸­, å°±æœ‰é¸æ“‡å°çš„å…ˆæ’å…¥çš„éç¨‹, å³ç‚ºæ’åº
 			if (L[i] <= R[j]) {
 				arr[k] = L[i];
 				i++;
@@ -59,13 +59,13 @@ class MergeSort {
 
 	// Main function that sorts arr[l..r] using
 	// merge()
-	void sort(int arr[], int l, int r) {// initial l=0, r=5 in index
+	void sort(int[] arr, int l, int r) {// initial l=0, r=5 in index
 		if (l < r) {
 			// Find the middle point
 			int m = (l + r) / 2;
 			
 			// Sort first and second halves
-			//, sort() ¨ì³Ì«á¬°¤¸¯Àµ¥¯Å, °±¤î±ø¥ó¬° l=r, ¤§«á¥ª¥k¦^¶Çªº¤¸¯À¦b°õ¦æ¤U­±ªº merge()
+			//, sort() åˆ°æœ€å¾Œç‚ºå…ƒç´ ç­‰ç´š, åœæ­¢æ¢ä»¶ç‚º l=r, ä¹‹å¾Œå·¦å³å›å‚³çš„å…ƒç´ åœ¨åŸ·è¡Œä¸‹é¢çš„ merge()
 			sort(arr, l, m);
 			sort(arr, m + 1, r);
 
@@ -75,16 +75,15 @@ class MergeSort {
 	}
 
 	/* A utility function to print array of size n */
-	static void printArray(int arr[]) {
+	static void printArray(int[] arr) {
 		int n = arr.length;
-		for (int i = 0; i < n; ++i)
-			System.out.print(arr[i] + " ");
+		for (int j : arr) System.out.print(j + " ");
 		System.out.println();
 	}
 
 	// Driver method
-	public static void main(String args[]) {
-		int arr[] = { 12, 11, 13, 5, 6, 7 };
+	public static void main(String[] args) {
+		int[] arr = { 12, 11, 13, 5, 6, 7 };
 
 		System.out.println("Given Array");
 		printArray(arr);
