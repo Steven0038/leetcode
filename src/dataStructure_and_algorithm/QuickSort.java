@@ -1,4 +1,4 @@
-package algorithm;
+package dataStructure_and_algorithm;
 
 import java.util.Arrays;
 
@@ -31,12 +31,12 @@ public class QuickSort {
     private int partition(int[] arr, int leftEdge, int rightEdge) {
         int pivot = arr[rightEdge];
         int leftPointer = leftEdge;
-        int rightPointer = rightEdge - 1;
+        int rightPointer = rightEdge - 1; // NOTE: 不要忘記-1
         while (true) {
             while (leftPointer < rightEdge && arr[leftPointer] <= pivot) { // 比 pivot 小就不用交換, 換到下一個
                 leftPointer++;
             }
-            while (rightPointer >= leftEdge && arr[rightPointer] > pivot) { // 比 pivot 大也不用交換, 換到下一個
+            while (rightPointer >= leftEdge && arr[rightPointer] > pivot) { // 比 pivot 大也不用交換, 換到下一個, NOTE: 注意等號條件,不給會有死循環
                 rightPointer--;
             }
 

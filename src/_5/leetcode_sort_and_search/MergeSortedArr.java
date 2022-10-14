@@ -1,7 +1,5 @@
 package _5.leetcode_sort_and_search;
 
-import java.util.Arrays;
-
 public class MergeSortedArr {
 
 	/**
@@ -18,15 +16,12 @@ public class MergeSortedArr {
 	 * 
 	 * Output: [1,2,2,3,5,6]
 	 * 
-	 * @author steven
-	 *
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Solution s = new Solution();
-		int nums1[] = { 1, 2, 3, 0, 0, 0 };
+		int[] nums1 = { 1, 2, 3, 0, 0, 0 };
 		int m = 3;
-		int nums2[] = { 2, 5, 6 };
+		int[] nums2 = { 2, 5, 6 };
 		int n = 3;
 
 		s.merge(nums1, m, nums2, n);
@@ -34,7 +29,6 @@ public class MergeSortedArr {
 		for (int i : nums1) {
 			System.out.print(i);
 		}
-
 	}
 
 }

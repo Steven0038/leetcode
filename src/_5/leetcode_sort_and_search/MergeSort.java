@@ -2,8 +2,6 @@ package _5.leetcode_sort_and_search;
 
 /**
  * WORST(n log n, AVG(n log n), BEST(n log n)
- * @author steven
- *
  */
 class MergeSort {
 	// Merges two subarrays of arr[].
