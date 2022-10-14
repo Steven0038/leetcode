@@ -5,10 +5,10 @@ package dataStructure_and_algorithm;
  */
 public class SingleLinkedListDemo {
     public static void main(String[] args){
-        HeroNode hero1 = new HeroNode(1, "Steven", "the nuts");
-        HeroNode hero2 = new HeroNode(2, "Ray", "rainer");
-        HeroNode hero3 = new HeroNode(3, "Joy", "join the team");
-        HeroNode hero4 = new HeroNode(4, "Fin", "the finisher");
+        HeroNode hero1 = new HeroNode(1, "宋江", "及時雨");
+        HeroNode hero2 = new HeroNode(2, "盧俊義", "玉麒麟");
+        HeroNode hero3 = new HeroNode(3, "吳用", "智多星");
+        HeroNode hero4 = new HeroNode(4, "林沖", "豹子頭");
 
         SingleLinkedList singleLinkedList = new SingleLinkedList();
 
@@ -29,7 +29,7 @@ public class SingleLinkedListDemo {
         singleLinkedList.list();
 
         // 修改節點數據
-        HeroNode newHeroNode = new HeroNode(2, "Brown", "dog manager");
+        HeroNode newHeroNode = new HeroNode(2, "小盧", "玉麒麟~~");
         singleLinkedList.updata(newHeroNode);
         System.out.println("=====修改後的結果=====");
         singleLinkedList.list();
@@ -40,9 +40,9 @@ public class SingleLinkedListDemo {
         singleLinkedList.list();
         singleLinkedList.delete(hero2); //刪除編號2
         singleLinkedList.list();
-        singleLinkedList.delete(hero3);; //刪除編號3
+        singleLinkedList.delete(hero3); //刪除編號3
         singleLinkedList.list();
-        singleLinkedList.delete(hero1);; //刪除編號4
+        singleLinkedList.delete(hero1); //刪除編號4
         singleLinkedList.list();
 
         // 求鏈結串列中有效節點的個數(若是有頭節點的鏈結串列，則不統計頭節點。)

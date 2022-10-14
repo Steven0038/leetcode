@@ -20,10 +20,10 @@ public class NowJava8 {
 
         System.out.println("name : " + name);
 
-//        List<String> collect = persons.stream()
-//                .map(Person::getName).collect(Collectors.toList());
         List<String> collect = persons.stream()
-                .map(Person::getName).toList();
+                .map(Person::getName).collect(Collectors.toList());
+//        List<String> collect = persons.stream()
+//                .map(Person::getName).toList();
 
         collect.forEach(System.out::println);
     }
