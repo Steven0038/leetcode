@@ -12,6 +12,7 @@ public class SingleLinkedListDemo {
 
         SingleLinkedList singleLinkedList = new SingleLinkedList();
 
+        // 添加到鍊表尾部
         singleLinkedList.add(hero1);
         singleLinkedList.add(hero2);
         singleLinkedList.add(hero3);
