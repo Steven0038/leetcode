@@ -167,7 +167,6 @@ class SingleLinkedList {
         boolean flag = false;
 
         while (true) {
-
             if (temp.next == null) break;
             if (temp.next.no == heroNode.no) {
                 flag = true;
