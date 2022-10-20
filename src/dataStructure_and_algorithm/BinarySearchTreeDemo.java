@@ -35,10 +35,9 @@ class BinarySearchTree {
         else return root.searchParent(value);
     }
 
-    // 1. 返回以node 為根節點的二元搜尋樹的最小節點的值
-    // 2. 刪除 node 為根節點的二元搜尋樹的最小節點
-
     /**
+     * // 1. 返回以node 為根節點的二元搜尋樹的最小節點的值
+     * // 2. 刪除 node 為根節點的二元搜尋樹的最小節點
      * @param node 傳入的節點(當作二元搜尋樹的根結點)
      * @return 返回的 以node 為根節點的二元搜尋樹的最小節點的值
      */
@@ -78,8 +77,8 @@ class BinarySearchTree {
                     parent.right = null;
                 }
             } else if (targetNode.left != null && targetNode.right != null) { // 3. 刪除有兩棵子樹的節點
-                int minVal = delRightTreeMin(targetNode.right);
-                targetNode.value = minVal;
+                int minVal = delRightTreeMin(targetNode.right); // 先刪除右子樹最小節點
+                targetNode.value = minVal; // 再以右子樹最小節點替代目標要刪除的節點
             } else { // 2. 刪除只有一棵子樹的節點
                 // 如果要刪除的節點有左子節點
                 if (targetNode.left != null) {
