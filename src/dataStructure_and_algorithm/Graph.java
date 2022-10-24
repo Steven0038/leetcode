@@ -2,6 +2,7 @@ package dataStructure_and_algorithm;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class Graph {
     private ArrayList<String> vertexList; // 儲存頂點集合
@@ -11,25 +12,35 @@ public class Graph {
 
     public static void main(String[] args) {
         // 測試圖是否成功創建
-        int n = 5; // 節點的個數
-//        int n = 8; // 節點的個數
-        String[] Vertexes = {"A", "B", "C", "D", "E"};
-//        String Vertexes[] = {"1", "2", "3", "4", "5", "6", "7", "8"};
+//        String[] Vertexes = {"A", "B", "C", "D", "E"};
+        String[] vertexes = {"1", "2", "3", "4", "5", "6", "7", "8"};
+        int n = vertexes.length; // 節點的個數
 
         // 創建圖對象
         Graph graph = new Graph(n);
         // 循環添加頂點
-        for (String vertex : Vertexes) {
+        for (String vertex : vertexes) {
             graph.insertVertex(vertex);
         }
 
-        // 添加邊
+        // 添加邊(ABCDE)
         // A-B A-C B-C B-D B-E
+//        graph.insertEdge(0, 1, 1);
+//        graph.insertEdge(0, 2, 1);
+//        graph.insertEdge(1, 2, 1);
+//        graph.insertEdge(1, 3, 1);
+//        graph.insertEdge(1, 4, 1);
+
+        ///更新邊的關係(12345678)
         graph.insertEdge(0, 1, 1);
         graph.insertEdge(0, 2, 1);
-        graph.insertEdge(1, 2, 1);
         graph.insertEdge(1, 3, 1);
         graph.insertEdge(1, 4, 1);
+        graph.insertEdge(3, 7, 1);
+        graph.insertEdge(4, 7, 1);
+        graph.insertEdge(2, 5, 1);
+        graph.insertEdge(2, 6, 1);
+        graph.insertEdge(5, 6, 1);
 
         // 顯示鄰接矩陣
         graph.showGraph();
@@ -37,6 +48,11 @@ public class Graph {
         // 測試 dfs
         System.out.println("深度遍歷");
         graph.dfs();
+        System.out.println();
+
+        // 測試 bfs
+        System.out.println("廣度優先!");
+        graph.bfs(); // A->B->C->D->E
     }
 
     // 顯示圖對應的矩陣
@@ -111,6 +127,49 @@ public class Graph {
         for (int i = 0; i < getNumOfVertex(); i++) {
             if (!isVisited[i]) {
                 dfs(isVisited, i);
+            }
+        }
+    }
+
+    // 對一個節點進行廣度優先遍歷的方法
+    private void bfs(boolean[] isVisited, int i) {
+        int u; // 表示隊列的頭節點對應下標
+        int w; // 表示鄰接節點 w
+        // 隊列, 紀錄節點訪問的順序
+        LinkedList<Integer> queue = new LinkedList<>();
+        // 訪問節點, 輸出節點訊息
+        System.out.print(getValueByIndex(i) + "=>");
+        // 標記為已訪問
+        isVisited[i] = true;
+        // 將節點加入隊列
+        queue.addLast(i);
+
+        while (!queue.isEmpty()) {
+            // 取出隊列的頭節點下標
+            u = (Integer) queue.removeFirst();
+            // 得到第一個鄰接點的下標
+            w = getFirstNeighbor(u);
+            while (w != -1) { // 找到
+                // 是否訪問過
+                if (!isVisited[w]) {
+                    System.out.print(getValueByIndex(w) + "=>");
+                    // 標記已經訪問
+                    isVisited[w] = true;
+                    // 入隊列
+                    queue.addLast(w);
+                }
+                // 以 u 為前驅點,找 w 後面的下一個鄰接點
+                w = getNextNeighbor(u, w); // NOTE: 體現出廣度優先
+            }
+        }
+    }
+
+    // 遍歷所有的節點, 都進行廣度優先搜索
+    public void bfs() {
+        isVisited = new boolean[vertexList.size()];
+        for (int i = 0; i < getNumOfVertex(); i++) {
+            if (!isVisited[i]) {
+                bfs(isVisited, i);
             }
         }
     }
