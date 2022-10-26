@@ -1,5 +1,6 @@
 package dataStructure_and_algorithm;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -10,6 +11,7 @@ public class BinarySearch {
         int[] arr = {1, 2, 3, 4, 5, 6, 7}; // sorted array
         BinarySearch bs = new BinarySearch();
 
+        // ==== iterative solutions ====
         int target = 6;
         // 1. 搜尋精確值
         System.out.println(Arrays.toString(arr));
@@ -37,7 +39,56 @@ public class BinarySearch {
 //        arr = new int[]{3, 4};
         System.out.println(Arrays.toString(arr));
         System.out.printf("搜尋最接近的值: nearest element to target %s at index %s", target, bs.searchNearestOccurrence(arr, target));
+        System.out.println();
 
+        // ==== recursive solutions (萬用, 如果沒要求用 iterative 實現, 學這個就好)====
+        target = 1000;
+        arr = new int[]{1, 8, 10, 89, 1000, 1000, 1000, 1234};
+        System.out.println(Arrays.toString(arr));
+        System.out.printf("搜尋所有重複值的位置: target %s at %s", target, searchMultipleOccurrence(arr, 0, arr.length - 1, target));
+
+    }
+
+    private static ArrayList<Integer> searchMultipleOccurrence(int[] arr, int left, int right, int target) {
+        int mid = (left + right) / 2;
+        int midVal = arr[mid];
+
+        if (left > right) { // 代表遞迴整個陣列但是沒有找到
+            return new ArrayList<>();
+        }
+
+        if (target > midVal) {
+            return searchMultipleOccurrence(arr, mid + 1, right, target);
+        } else if (target < midVal) {
+            return searchMultipleOccurrence(arr, left, right - 1, target);
+        } else { // 已找到目標數
+            ArrayList<Integer> resIndexes = new ArrayList<>();
+
+            // 向左掃描加入重複的目標數 Index
+            int tmpIndex = mid - 1;
+            while (true) {
+                if (tmpIndex < 0 || arr[tmpIndex] != target) {
+                    break;
+                }
+                resIndexes.add(tmpIndex);
+                tmpIndex -= 1;
+            }
+
+            // 加入最初找到目標數的 index
+            resIndexes.add(mid);
+
+            // 向右掃描
+            tmpIndex = mid + 1;
+            while (true) {
+                if (tmpIndex > right || arr[tmpIndex] != target) {
+                    break;
+                }
+                resIndexes.add(tmpIndex);
+                tmpIndex += 1;
+            }
+
+            return resIndexes;
+        }
     }
 
     private int searchNearestOccurrence(int[] arr, int target) {
