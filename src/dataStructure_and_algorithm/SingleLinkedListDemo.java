@@ -19,6 +19,26 @@ public class SingleLinkedListDemo {
         singleLinkedList.addToTail(hero4);
         singleLinkedList.list();
 
+        // 找中間節點(two pointer)
+        HeroNode middleNode = singleLinkedList.findMiddleNode();
+        System.out.printf("中間節點 編號: %s, 名稱: %s", middleNode.no, middleNode.name);
+        System.out.println();
+
+        // 找倒數第 N 個節點
+        int n = 2;
+        HeroNode lastNthNode = singleLinkedList.findLastNthNode(n);
+        System.out.printf("倒數第 %s 個節點, 編號: %s, 名稱: %s", n, lastNthNode.no, lastNthNode.name);
+        System.out.println();
+
+        // 得到反轉的鍊表
+        System.out.println("=====鍊表反轉=====");
+        HeroNode reversedHead = singleLinkedList.reverseLinkedListRecursive();
+        while (reversedHead.next != null) {
+            System.out.println(reversedHead);
+            reversedHead = reversedHead.next;
+        }
+        System.out.println("=====鍊表反轉 END=====");
+
         // 按照編號順序添加
         singleLinkedList.addByOrder(hero1);
         singleLinkedList.addByOrder(hero4);
@@ -52,7 +72,6 @@ public class SingleLinkedListDemo {
 
         // 求鏈結串列中有效節點的個數(若是有頭節點的鏈結串列，則不統計頭節點。)
         System.out.println(getLength(singleLinkedList.getHead())); //獲得節點個數
-
     }
 
     public static int getLength(HeroNode head) {
@@ -192,10 +211,7 @@ class SingleLinkedList {
 
         HeroNode temp = head.next;
 
-        while (true) {
-            if (temp == null) {
-                break;
-            }
+        while (temp != null) {
             //輸出節點訊息
             System.out.println(temp);
             //將temp後移, 不然是死循環
@@ -217,6 +233,62 @@ class SingleLinkedList {
             newNode.next = next; // 指定插入節點的下一個節點
             prev.next = newNode; // 將前一個節點的下一個節點指定給插入節點
         }
+    }
+
+    public HeroNode findMiddleNode() {
+        HeroNode slow = head;
+        HeroNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow; // 快指針是慢指針的2倍速度, 快指針到底之後, 滿指針就會停留在中點(偶數鍊表, 奇數鍊表就會停在中間二個節點其中一個)
+    }
+
+    /**
+     * 讓快指針先走 n 步, 之後一起走. 快指針碰底為 Null 之後, 慢指針位置就是倒數第 N 個節點
+     *
+     * @param n Nth
+     * @return the last Nth Node
+     * @see _3.leetcode_linkedList.RemoveNthNodeFromTheEndOfList
+     */
+    public HeroNode findLastNthNode(int n) {
+        HeroNode slow = head;
+        HeroNode fast = head;
+        for (int i = 0; i < n; i++) {
+            fast = fast.next;
+        }
+
+        while (fast != null) { // NOTE
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        return slow;
+    }
+
+    public HeroNode reverseLinkedListRecursive() {
+        return reverse(head);
+    }
+
+    /**
+     * 遞迴反轉鏈表
+     *
+     * @param head of list to be reversed
+     * @return reversed linked list head
+     * @see _3.leetcode_linkedList.ReverseLinkedList iterative solution
+     */
+    public HeroNode reverse(HeroNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        HeroNode reversedHead = reverse(head.next);
+        head.next.next = head;
+        head.next = null;
+
+        return reversedHead;
     }
 }
 

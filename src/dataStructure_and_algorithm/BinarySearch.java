@@ -22,15 +22,19 @@ public class BinarySearch {
 
         // 3. 搜尋模糊值 從頭算起, target 最初出現在 array 的位置
         target = 2;
-        arr = new int[]{1, 1, 1, 2, 2, 6, 7};
+        arr = new int[]{1, 1, 2, 2, 2, 6, 7};
+//        arr = new int[]{1, 1, 1, 2, 2, 6, 7};
+//        arr = new int[]{2, 3};
         System.out.println(Arrays.toString(arr));
-        System.out.printf("搜尋模糊值: first target %s at index %s", target, bs.searchFirstOccurrence(arr, target));
+        System.out.printf("搜尋模糊值: first occurrence of %s at index %s", target, bs.searchFirstOccurrence(arr, target));
         System.out.println();
 
         // 4. 搜尋模糊值 從頭算起, target 最後出現在 array 的位置
-        arr = new int[]{1, 1, 2, 2, 5, 6, 7};
+//        arr = new int[]{1, 1, 2, 2, 2, 6, 7};
+//        arr = new int[]{1, 1, 2, 2, 5, 6, 7};
+        arr = new int[]{2, 3};
         System.out.println(Arrays.toString(arr));
-        System.out.printf("搜尋模糊值: last target %s at index %s", target, bs.searchLastOccurrence(arr, target));
+        System.out.printf("搜尋模糊值: last occurrence of %s at index %s", target, bs.searchLastOccurrence(arr, target));
         System.out.println();
 
         // 5. 搜尋最接近的值
