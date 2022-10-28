@@ -20,8 +20,8 @@ import java.util.Deque;
 public class DailyTemperatures {
     public static void main(String[] args) {
         DailyTemperatures dt = new DailyTemperatures();
-        int[] T = new int[]{73, 74, 75, 71, 69, 72, 76, 73};
-        System.out.println(Arrays.toString(dt.dailyTemperatures(T)));
+        int[] tmpArr = new int[]{73, 74, 75, 71, 69, 72, 76, 73};
+        System.out.println(Arrays.toString(dt.dailyTemperatures(tmpArr)));
     }
 
     /**
@@ -45,7 +45,6 @@ public class DailyTemperatures {
             while (!stack.isEmpty() && tmpArr[i] >= tmpArr[stack.peek()]) {
                 stack.pop(); // pop 掉比當前 T[i] 小的 元素 index
             }
-
 //            res[i] = stk.isEmpty() ? 0 : stk.peek() - i;
             if (stack.isEmpty()) {
                 res[i] = 0;

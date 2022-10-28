@@ -283,10 +283,11 @@ class SingleLinkedList {
         if (head == null || head.next == null) {
             return head;
         }
-
+        //    h  rh
+        // 1->2->3
         HeroNode reversedHead = reverse(head.next);
-        head.next.next = head;
-        head.next = null;
+        head.next.next = head; // 1->2<->3
+        head.next = null;      // 1->2<-3
 
         return reversedHead;
     }
