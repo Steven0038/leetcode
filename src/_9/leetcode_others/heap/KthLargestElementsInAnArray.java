@@ -27,6 +27,14 @@ public class KthLargestElementsInAnArray {
         int k = 4;
         System.out.println(Arrays.toString(nums));
         System.out.printf("the %sth largest element in array is: %s", k, kle.findKthLargest(nums, k));
+        System.out.println();
+        System.out.printf("the %sth largest element in array is: %s", k, kle.findKthLargest2(nums, k));
+        System.out.println();
+
+        // easiest solution
+        Arrays.sort(nums);
+        int nth = nums[nums.length - k];
+        System.out.printf("the %sth largest element in array is: %s", k, nth);
     }
 
     /**
@@ -42,9 +50,9 @@ public class KthLargestElementsInAnArray {
     private Integer findKthLargest(int[] nums, int k) {
         PriorityQueue<Integer> heap = new PriorityQueue<>();
         for (int num : nums) {
-            if (heap.isEmpty()) heap.offer(num); // FIXME
+            if (heap.isEmpty()) heap.offer(num); // TODO
 
-            if (!heap.isEmpty() && heap.size() < k && num >= heap.peek()) {
+            if (!heap.isEmpty() && (heap.size() < k || num >= heap.peek())) {
                 heap.offer(num);
             }
 
@@ -54,5 +62,14 @@ public class KthLargestElementsInAnArray {
         }
 
         return heap.peek();
+    }
+
+    public int findKthLargest2(int[] nums, int k) {
+        PriorityQueue<Integer> q = new PriorityQueue<>();
+        for (int n : nums) {
+            q.offer(n);
+            if (q.size() > k) q.poll();
+        }
+        return q.poll();
     }
 }
