@@ -31,7 +31,9 @@ public class AsteroidCollision {
         AsteroidCollision ac = new AsteroidCollision();
 //        int[] asteroids = {5, 10, -5};
 //        int[] asteroids = {10, 2, -5};
-        int[] asteroids = {11, 8, 2, -5, -8, 3}; // -> [11,3]
+//        int[] asteroids = {11, 8, 2, -5, -8, 3}; // -> [11,3]
+        int[] asteroids = {-11, 8, 2, -5, -8, 3}; // -> [-11,3]
+//        int[] asteroids = {-6, 8, 2, -5, -8, 3}; // ->
         System.out.println(Arrays.toString(ac.asteroidCollision(asteroids)));
     }
 
@@ -39,7 +41,7 @@ public class AsteroidCollision {
         Deque<Integer> stack = new ArrayDeque<>();
         for (int ast : asteroids) {
             // positive meaning right, negative meaning left
-            if (ast > 0) {
+            if (ast > 0) { // 向右不會與 stack 內向左的衝突, 直接加入
                 stack.push(ast);
             } else {
                 // 反向比大小相撞
@@ -49,7 +51,7 @@ public class AsteroidCollision {
 
                 if (!stack.isEmpty() && stack.peek() == -ast) { // 反向一樣大,互相毀滅 (不 Push 新元素到 stack 裡)
                     stack.pop();
-                } else if (stack.isEmpty() || stack.peek() < 0) {
+                } else if (stack.isEmpty() || stack.peek() < 0) { // NOTE: 表示向左的贏了(負值) or stack 目前是空的, 才能將向左的加入
                     stack.push(ast); // 活到最後加入 stack
                 }
             }
