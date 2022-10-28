@@ -1,4 +1,4 @@
-package _9.leetcode_others;
+package _9.leetcode_others.stack;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
