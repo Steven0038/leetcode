@@ -32,7 +32,7 @@ public class KthLargestElementsInAnArray {
         System.out.println();
 
         // easiest solution
-        Arrays.sort(nums);
+        Arrays.sort(nums); // equal to quicksort, O(n * log n), but wost case is O(n^2)
         int nth = nums[nums.length - k];
         System.out.printf("the %sth largest element in array is: %s", k, nth);
     }
@@ -42,6 +42,8 @@ public class KthLargestElementsInAnArray {
      * - 2. 只加進比 heap 的 root 大 的元素
      * - 3. 同時滿足 1&2 二點, heap 的 root 永遠是當前所有 heap 元素中第 k 大的元素(而且是動態的)
      * - 所有 array 都做完的話, heap 的 root 就是 array 中第 K 大的元素
+     * <p>
+     * O(n * log n)
      *
      * @param nums input array
      * @param k    kth largest
@@ -65,11 +67,18 @@ public class KthLargestElementsInAnArray {
     }
 
     public int findKthLargest2(int[] nums, int k) {
-        PriorityQueue<Integer> q = new PriorityQueue<>();
+        if (nums.length == 0) return 0;
+
+        PriorityQueue<Integer> heap = new PriorityQueue<>();
         for (int n : nums) {
-            q.offer(n);
-            if (q.size() > k) q.poll();
+            heap.offer(n);
+
+            if (heap.size() > k) {
+                heap.poll();
+            }
         }
-        return q.poll();
+
+        if (heap.isEmpty()) return 0;
+        return heap.peek();
     }
 }

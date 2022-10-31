@@ -28,44 +28,30 @@ import java.util.PriorityQueue;
 class MergeKSortedLists {
     // Function to merge k sorted linked lists
     static ListNode mergeKList(ListNode[] arr) {
-        // Priority_queue 'heap' implemented
-        // as min heap with the help of
-        // 'compare' function
+        // Priority_queue 'heap' implemented as min heap with the help of 'compare' function
         PriorityQueue<ListNode> heap = new PriorityQueue<>(Comparator.comparingInt(a -> a.val));
         ListNode head = new ListNode(0);
-        ListNode last = head;
-        // Push the head nodes of all
-        // the k lists in 'heap'
+        ListNode tmpCurr = head;
+        // Push the head nodes of all the k lists in 'heap'
         for (ListNode listNode : arr) {
             if (listNode != null) {
                 heap.add(listNode);
             }
         }
-        // Handles the case when k = 0
-        // or lists have no elements in them
-        if (heap.isEmpty())
-            return null;
+        // Handles the case when k = 0 or lists have no elements in them
+        if (heap.isEmpty()) return null;
+
         // Loop till 'heap' is not empty
         while (!heap.isEmpty()) {
-            // Get the top element of 'heap'
-            ListNode curr = heap.poll();
-
-            // Add the top element of 'heap'
-            // to the resultant merged list
-            last.next = curr;
-            last = last.next;
-            // Check if there is a node
-            // next to the 'top' node
-            // in the list of which 'top'
-            // node is a member
-            if (curr.next != null) {
-                // Push the next node of top node
-                // in 'heap'
-                heap.add(curr.next);
+            ListNode top = heap.poll(); // Get the top element of 'heap'
+            tmpCurr.next = top; // Add the top element of 'heap' to the resultant merged list
+            tmpCurr = tmpCurr.next;
+            // Check if there is a node next to the 'top' node in the list of which 'top' node is a member
+            if (top.next != null) {
+                heap.add(top.next); // Push the next node of top node in 'heap'
             }
         }
-        // Address of head node of the required
-        // merged list
+        // Address of head node of the required merged list
         return head.next;
     }
 
@@ -80,25 +66,26 @@ class MergeKSortedLists {
     public static void main(String[] args) {
         int N = 3;
 
-        // array to store head of linkedlist
+        // array to store head of linked list
         ListNode[] arr = new ListNode[N];
 
-        // Linkedlist1
         ListNode head1 = new ListNode(1);
-        arr[0] = head1;
         head1.next = new ListNode(4);
         head1.next.next = new ListNode(5);
 
-        // Limkedlist2
         ListNode head2 = new ListNode(1);
-        arr[1] = head2;
         head2.next = new ListNode(3);
         head2.next.next = new ListNode(4);
 
-        // Linkedlist3
         ListNode head3 = new ListNode(2);
-        arr[2] = head3;
         head3.next = new ListNode(6);
+
+        /* [ 1->4->5,
+             1->3->4,
+             2->6 ] */
+        arr[0] = head1;
+        arr[1] = head2;
+        arr[2] = head3;
 
         ListNode res = mergeKList(arr);
 
