@@ -19,6 +19,7 @@ public class MaxDepthOfBinaryTree {
         System.out.println("[iterate] Height of tree is : " + tree.maxDepthIterative(tree.root));
     }
 
+    // BFS
     private int maxDepthIterative(TreeNode root) {
         if (root == null) return 0;
 
@@ -43,23 +44,16 @@ public class MaxDepthOfBinaryTree {
         return depth;
     }
 
+    // DFS
     public int maxDepthRecursive(TreeNode node) {
-        if (node == null) {
-            return 0;
-        } else {
-            /* compute the depth of each subtree */
-            int lDepth = maxDepthRecursive(node.left);
-            int rDepth = maxDepthRecursive(node.right);
+        if (node == null) return 0;
 
-            /* use the larger one */
-            if (lDepth > rDepth)
-                return (lDepth + 1);
-            else
-                return (rDepth + 1);
-        }
+        /* compute the depth of each subtree */
+        int lDepth = maxDepthRecursive(node.left);
+        int rDepth = maxDepthRecursive(node.right);
 
-        /*solution 2*/
-//       return root == null ? 0 : Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+        /* use the larger one */
+        return Math.max(lDepth, rDepth) + 1;
     }
 
 }
