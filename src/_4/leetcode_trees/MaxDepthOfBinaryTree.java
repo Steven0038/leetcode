@@ -1,40 +1,65 @@
 package _4.leetcode_trees;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class MaxDepthOfBinaryTree {
+    TreeNode root;
 
-	TreeNode root;
+    /* Driver program to test above functions */
+    public static void main(String[] args) {
+        MaxDepthOfBinaryTree tree = new MaxDepthOfBinaryTree();
+        tree.root = new TreeNode(1);
+        tree.root.left = new TreeNode(2);
+        tree.root.right = new TreeNode(3);
+        tree.root.left.left = new TreeNode(4);
+        tree.root.left.right = new TreeNode(5);
 
-	public int maxDepth(TreeNode node) {
-		if (node == null) {
-			return 0;
-		} else {
-			/* compute the depth of each subtree */
-			int lDepth = maxDepth(node.left);
-			int rDepth = maxDepth(node.right);
+        System.out.println("[recursive] Height of tree is : " + tree.maxDepthRecursive(tree.root));
+        System.out.println("[iterate] Height of tree is : " + tree.maxDepthIterative(tree.root));
+    }
 
-			 /* use the larger one */
-			if (lDepth > rDepth)
-				return (lDepth + 1);
-			else
-				return (rDepth + 1);
-		}
+    private int maxDepthIterative(TreeNode root) {
+        if (root == null) return 0;
 
-		/*solution 2*/
+        int depth = 0;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode curr = queue.poll();
+                if (curr.left != null) {
+                    queue.add(curr.left);
+                }
+                if (curr.right != null) {
+                    queue.add(curr.right);
+                }
+            }
+            depth++; // NOTE
+        }
+
+        return depth;
+    }
+
+    public int maxDepthRecursive(TreeNode node) {
+        if (node == null) {
+            return 0;
+        } else {
+            /* compute the depth of each subtree */
+            int lDepth = maxDepthRecursive(node.left);
+            int rDepth = maxDepthRecursive(node.right);
+
+            /* use the larger one */
+            if (lDepth > rDepth)
+                return (lDepth + 1);
+            else
+                return (rDepth + 1);
+        }
+
+        /*solution 2*/
 //       return root == null ? 0 : Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
-	}
-
-	/* Driver program to test above functions */
-	public static void main(String[] args) {
-		MaxDepthOfBinaryTree tree = new MaxDepthOfBinaryTree();
-
-		tree.root = new TreeNode(1);
-		tree.root.left = new TreeNode(2);
-		tree.root.right = new TreeNode(3);
-		tree.root.left.left = new TreeNode(4);
-		tree.root.left.right = new TreeNode(5);
-
-		System.out.println("Height of tree is : " + tree.maxDepth(tree.root));
-
-	}
+    }
 
 }
