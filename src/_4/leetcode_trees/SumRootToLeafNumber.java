@@ -54,13 +54,20 @@ public class SumRootToLeafNumber {
         return sum;
     }
 
-    // top down DFS
+    /**
+     * top down DFS
+     * <p>
+     * See also {@link BinaryTreeMaximumPathSum#dfs(TreeNode)}
+     *
+     * @param node
+     * @param num  上至下傳入值, 用來計算底部最終用來加總的數據
+     */
     private void dfs(TreeNode node, int num) {
         num = num * 10 + node.val;
 
         if (node.left == null && node.right == null) {
-            sum += num;
-            return;
+            sum += num; // NOTE: early return, 當左右節點都是 null 就 return,
+            return; // 不然如果 null 才 return, 同一個底部葉節點會多算一次 sum += num
         }
 
         if (node.left != null) {

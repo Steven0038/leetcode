@@ -22,6 +22,13 @@ package _4.leetcode_trees;
 public class BinaryTreeMaximumPathSum {
     public static void main(String[] args) {
         BinaryTreeMaximumPathSum tree = new BinaryTreeMaximumPathSum();
+        /**
+         *              -10
+         *              / \
+         *             9   20
+         *                / \
+         *               15  7
+         */
         TreeNode root;
         root = new TreeNode(-10);
         root.left = new TreeNode(9);
@@ -39,8 +46,13 @@ public class BinaryTreeMaximumPathSum {
         return max;
     }
 
-    // bottom up DFS
-    private int dfs(TreeNode node) {
+    /**
+     * bottom up DFS
+     * @param node
+     * @return 下至上回傳值, 用來計算最大路徑
+     * @see SumRootToLeafNumber
+     */
+    public int dfs(TreeNode node) {
         if (node == null) return 0;
 
         // 只能走人字形 path, 除了 root, 不能走二個左右節點,否則就不是單邊人字形路徑(意即子節點都是回傳最大的單邊)
