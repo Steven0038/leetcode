@@ -34,7 +34,7 @@ public class _01Matrix {
         System.out.println(Arrays.deepToString(m.updateMatrix(mat)));
     }
 
-    int[][] dirs = {{1, 0}, {-1, 0}, {0, -1}, {0, 1}}; // 上下左右
+    int[][] dirs = {{1, 0}, {-1, 0}, {0, -1}, {0, 1}}; // 題目是2D matrix graph: 使用 direction array, 上下左右作為遍歷使用
 
     /**
      * Time: O(mn), Space: O(mn)
@@ -46,10 +46,9 @@ public class _01Matrix {
         int m = mat.length, n = mat[0].length;
         int[][] res = new int[m][n];
 
-        // 將所有數值為零的節點標記為訪問過, 並放入queue之後作為檢查 starting point
-
+        // 將所有數值為零的節點標記為訪問過, 並放入queue之後作為檢查 starting point (檢查從0走到1所需步數)
         boolean[][] visited = new boolean[m][n]; // 訪問過的節點
-        Queue<int[]> queue = new LinkedList<>();// i j
+        Queue<int[]> queue = new LinkedList<>(); // i j
         for (int i = 0; i < m; i++) { // 將所有的 0 節點作為初始 starting point
             for (int j = 0; j < n; j++) {
                 if (mat[i][j] == 0) {
