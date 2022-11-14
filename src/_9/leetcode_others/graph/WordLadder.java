@@ -80,8 +80,9 @@ public class WordLadder {
     private Map<String, List<String>> constructGraph(List<String> wordList) {
         Map<String, List<String>> graph = new HashMap<>(); // adjacency list map graph
         int n = wordList.size();
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = i + 1; j < n; j++) {
+        // n^2 節點互相尋找是否符合相連條件,以構成圖
+        for (int i = 0; i < n - 1; i++) { // NOTE: n-1
+            for (int j = i + 1; j < n; j++) { // NOTE: n
                 String w1 = wordList.get(i), w2 = wordList.get(j);
                 if (oneChangeAway(w1, w2)) {
                     graph.computeIfAbsent(w1, k -> new ArrayList<>()).add(w2); // w1-w2 建立無向圖連線
