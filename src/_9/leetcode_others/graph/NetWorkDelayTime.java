@@ -61,7 +61,7 @@ public class NetWorkDelayTime {
         Map<Integer, Integer> visitedCosts = new HashMap<>(); // 用以紀錄 cost 以及查重, costs is delay time
 //        PriorityQueue<Cell> heap = new PriorityQueue<>();
         PriorityQueue<Cell> heap = new PriorityQueue<>(Comparator.comparingInt(cell -> cell.time)); // 不指定 comparator 默認為最小堆
-        heap.offer(new Cell(k, 0));
+        heap.offer(new Cell(k, 0)); // 初始化 heap, 由於初始是 K 到 K node 的 cost, 是故以下的 Cell cost 都會是從起點 K 到 cell node 的 cost
         while (!heap.isEmpty()) {
             Cell cur = heap.poll(); // heap 永遠會從棧頂拉出最小 time cost Cell, 是故只要 heap 有最小路徑數據, 就從最小路徑繼續往鄰接節點找
             if (visitedCosts.containsKey(cur.node)) continue; // is visited (展開過就不需重複展開, 不然如果有環會死循環)
