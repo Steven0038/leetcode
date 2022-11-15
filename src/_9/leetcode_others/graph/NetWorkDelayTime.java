@@ -50,16 +50,17 @@ public class NetWorkDelayTime {
      */
     private int networkDelayTime(int[][] times, int n, int k) {
         // 依據題目給定的 array, 整理好路徑建立 map graph
-        Map<Integer, List<Cell>> graph = new HashMap<>(); // <src, (des, cost)> 起點,終點,權重
-        for (int[] time : times) { // time:[src, des, cost]
+        Map<Integer, List<Cell>> graph = new HashMap<>(); // <srcNode, (desNode, cost)> 起點,終點,權重
+        for (int[] time : times) { // time:[srcNode, desNode, cost]
             List<Cell> edges = graph.getOrDefault(time[0], new ArrayList<>());
             edges.add(new Cell(time[1], time[2])); // add new neighbor to source node
             graph.put(time[0], edges);
         }
 
-        Map<Integer, Integer> visitedCosts = new HashMap<>(); // 紀錄 cost 以及查重, costs is delay time
+        // <node, cost from start node>
+        Map<Integer, Integer> visitedCosts = new HashMap<>(); // 用以紀錄 cost 以及查重, costs is delay time
 //        PriorityQueue<Cell> heap = new PriorityQueue<>();
-        PriorityQueue<Cell> heap = new PriorityQueue<>(Comparator.comparingInt(a -> a.time)); // 不指定 comparator 默認為最小堆
+        PriorityQueue<Cell> heap = new PriorityQueue<>(Comparator.comparingInt(cell -> cell.time)); // 不指定 comparator 默認為最小堆
         heap.offer(new Cell(k, 0));
         while (!heap.isEmpty()) {
             Cell cur = heap.poll(); // heap 永遠會從棧頂拉出最小 time cost Cell, 是故只要 heap 有最小路徑數據, 就從最小路徑繼續往鄰接節點找
@@ -71,7 +72,7 @@ public class NetWorkDelayTime {
                 for (Cell nei : graph.get(cur.node)) {
 //                    if (!visitedCosts.containsKey(nei.node)) { // 可以不檢查,單純優化
                         // 向 heap 添加路徑數據(同一node 可能會被從不同路徑添加多次, 但 heap 會取最小 time 在棧頂)
-                        heap.offer(new Cell(nei.node, cur.time + nei.time)); // 起點到當前節點的最優路徑cost+當前節點到鄰居節點的cost
+                        heap.offer(new Cell(nei.node, cur.time + nei.time)); // 核心算法,更新cost: 起點到當前節點的最優路徑cost+當前節點到鄰居節點的cost
 //                    }
                 }
             }
@@ -88,7 +89,9 @@ public class NetWorkDelayTime {
         return res;
     }
 
-    class Cell implements Comparable<Cell> {
+    class Cell
+//            implements Comparable<Cell>
+    {
         int node; // destination
         int time; // cost
 
@@ -96,10 +99,10 @@ public class NetWorkDelayTime {
             this.node = node;
             this.time = time;
         }
-        // for heap
-        public int compareTo(Cell c2) {
-            return time - c2.time;
-        }
+//        // for heap
+//        public int compareTo(Cell c2) {
+//            return time - c2.time;
+//        }
     }
 
     public int networkDelayTime2(int[][] times, int N, int K) {
