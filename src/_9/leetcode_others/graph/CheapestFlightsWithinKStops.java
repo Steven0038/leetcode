@@ -94,4 +94,44 @@ public class CheapestFlightsWithinKStops {
         }
     }
 
+//    private int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+//        // build graph
+//        Map<Integer, List<Cell>> graph = new HashMap<>();
+//        for (int[] flight : flights) {
+//            List<Cell> nextStops = graph.getOrDefault(flight[0], new ArrayList<>());
+//            nextStops.add(new Cell(flight[1], flight[2], k));
+//            graph.put(flight[0], nextStops);
+//        }
+//
+//        // use heap do dijstra
+//        PriorityQueue<Cell> heap = new PriorityQueue<>(Comparator.comparingInt(cell -> cell.price));
+//        heap.add(new Cell(src, 0, k));
+//
+//        while (!heap.isEmpty()) {
+//            Cell curr = heap.poll();
+//            if (curr.dest == dst)
+//                return curr.price;
+//            // add all next stops to heap
+//            if (curr.transCount >= 0 && graph.containsKey(curr.dest)) {
+//                for (Cell next : graph.get(curr.dest)) {
+//                    heap.add(new Cell(next.dest, curr.price + next.price, curr.transCount - 1));
+//                }
+//            }
+//        }
+//
+//        return -1;
+//    }
+//
+//    class Cell {
+//        int dest;
+//        int price;
+//        int transCount;
+//
+//        Cell(int dest, int price, int transCount) {
+//            this.dest = dest;
+//            this.price = price;
+//            this.transCount = transCount;
+//        }
+//    }
+
 }
