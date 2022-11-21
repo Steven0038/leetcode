@@ -58,7 +58,7 @@ public class WordLadder {
                 }
 
                 for (String neighbor : graph.getOrDefault(cur, new ArrayList<>())) { // 從圖中取得鄰接節點
-                    if (!visited.contains(neighbor)) {
+                    if (!visited.contains(neighbor)) { // NOTE: BFS 是在加入鄰居節點進 queue 的時候確認是否訪問
                         visited.add(neighbor);
                         queue.offer(neighbor);
                         System.out.println("visit current node: " + cur);
