@@ -33,9 +33,10 @@ public class WordBreak {
         System.out.println(wb.wordBreak(s, wordDict));
     }
 
-    Boolean[] memo;
+    Boolean[] memo; // record calculated sub-problems
 
     /**
+     * bottom up DFS,
      * Time: O(n^2)
      * @param s given input string to check
      * @param wordDict list of substring
@@ -58,13 +59,13 @@ public class WordBreak {
         //         子問題(0, j)     (j, n)
         // 如果 x 是 dict 中的一個單詞, 整個問題 [0, i) 就會是 true
         memo[sLen] = false;
-        for (int j = 0; j < sLen; j++) {
+        for (int j = 0; j < sLen; j++) { // for each sub-problem x
             boolean right = dict.contains(s.substring(j, sLen)); // 右邊 (j~len-1)
             if (!right) continue;
 
             boolean left = dfs(s, j, dict); // 左邊子問題 (0~j)
             if (left) { // 只要子問題符合
-                memo[sLen] = true; // 整塊當前區域就符合
+                memo[sLen] = true; // 整塊當前區域就符合 (store current sub-problem answer)
                 break;
             }
         }
