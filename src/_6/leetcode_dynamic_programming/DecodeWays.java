@@ -25,6 +25,14 @@ package _6.leetcode_dynamic_programming;
  * <p>
  * Output: 3
  * Explanation: "226" could be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6).
+ * <p>
+ * Example 3:
+ * <p>
+ * Input: s = "06"
+ * <p>
+ * Output: 0
+ * <p>
+ * Explanation: "06" cannot be mapped to "F" because of the leading zero ("6" is different from "06").
  */
 public class DecodeWays {
     public static void main(String[] args) {
@@ -32,17 +40,19 @@ public class DecodeWays {
         /**                           226
          *                          /     \
          *                    2 26(Z)    22 6(F)
-         *                    /         /    \
-         *                 2(B)      2 2(B)   22(V)
-         *                           |
+         *                     |        /    \
+         *                   2(B)    2 2(B)   22(V)
+         *                            |
          *                          2(B)
          */
 
         /**                             n
          *                          /       \
          *                      n-2         n-1
-         *                        \       /     \
-         *                        n-3    n-3   n-2
+         *                     /   |       /   \
+         *                  N/A   n-3     n-3  n-2
+         *
+         *           NOTE: n-4 is N/A
          */
 
         DecodeWays dw = new DecodeWays();
@@ -69,6 +79,7 @@ public class DecodeWays {
      * 1D array DP
      * [n-1][x]  (x < 10)
      * [n-2][xx] (10 =< xx =<26)
+     *
      * @param s input string
      * @param n s length
      * @return number of chars could s to be decoding of this sub-question
