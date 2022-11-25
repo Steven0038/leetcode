@@ -26,9 +26,9 @@ public class UniquePathsII {
                 {0, 0, 0}};
 
         /**
-         *                        (3,3)
+         *                        (3,3)         終點
          *                    /          \
-         *                 (2,3)        (3,2)
+         *                 (2,3)        (3,2)   可以從上面,也可以從左邊走過來
          *                 /  \          /   \
          *            (1,3)   (2,2)   (2,2)   (3,1)
          *                     中間有石頭
@@ -60,12 +60,12 @@ public class UniquePathsII {
         if (i < 0 || i >= m || j < 0 || j >= n || matrix[i][j] == 1) {
             return 0; // base case: 出界或遇到石頭
         }
-        if (i == 0 && j == 0) return 1; // 只有一格
+        if (i == 0 && j == 0) return 1; // 只有一格 or break down 到起點
         if (memo[i][j] != null) return memo[i][j];
 
         int res = 0;
-        res += dfs(matrix, i - 1, j); // 左邊的子問題
-        res += dfs(matrix, i, j - 1); // 右邊的子問題
+        res += dfs(matrix, i - 1, j); // 左邊的子問題(上邊路徑)
+        res += dfs(matrix, i, j - 1); // 右邊的子問題(左邊路徑)
 
         return memo[i][j] = res;
     }
