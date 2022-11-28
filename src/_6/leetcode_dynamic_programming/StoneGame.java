@@ -73,7 +73,7 @@ public class StoneGame {
 
         if (memo[i][j] != null) return memo[i][j];
 
-        int res = Math.max( // 層數相減值 > 0 說明 Alex 拿了這層之後肯定會贏
+        int res = Math.max( // 層數相減值 > 0 說明 Alex 拿了這層之後肯定會贏 (<0代表當前層的最大值,沒有比上一層的最大值大)
                 piles[i] - dfs(piles, i + 1, j), // 取頭, 子問題就變成 i + 1
                 piles[j] - dfs(piles, i, j - 1)); // 取尾, 子問題就變成 j - 1
 
