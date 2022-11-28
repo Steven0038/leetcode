@@ -29,22 +29,23 @@ public class StoneGame {
         System.out.println(sg.stoneGame(piles));
 
         /**
-         *                          [5,3,4,5] Alex
+         * 偶數堆, Alice 先拿, 代表 Bob 永遠是拿最後一堆, 所以可以用 (當前堆數量 - 上一層所能拿到的最大堆) 推斷最後是否 Alice 贏
+         *                          [5,3,4,5] Alice
          *                          i       j
          *                          /       \
-         *                     [3,4,5]      [5,3,4]  Lee
+         *                     [3,4,5]      [5,3,4]  Bob
          *                     /     \      /     \
          *                   i+1      j    i      j-1
          *   State:(i, j) maximum relative score we can earn with subarray of stones [i..j]
          *   ex: dfs([5,3,4,5]) - dfs([3,4,5]) > 0 說明 Alex 拿了這層之後肯定會贏  = 0 則為平手  < 0  就輸了
          *
-         *                          [5,3,4,5] (0,3)
+         *                          [5,3,4,5] (0,3) Alice
          *                          /              \
-         *              [5,3,4](0,2)                [3,4,5](1,3)
+         *              [5,3,4](0,2)                [3,4,5](1,3) Bob
          *             /            \               /           \
-         *       [5,3](0,1)       #[3,4](1,2)     #[3,4](1,2)  [4,5](2,3)
+         *       [5,3](0,1)       #[3,4](1,2)     #[3,4](1,2)  [4,5](2,3) Alice
          *       /        \        /        \                    /      \
-         * [5](0.0)  @[3](1,1)  @[3](1,1) $[4](2,2)         $[4](2,2)   [5](3,3)
+         * [5](0.0)  @[3](1,1)  @[3](1,1) $[4](2,2)         $[4](2,2)   [5](3,3) Bob
          */
     }
 
@@ -57,11 +58,11 @@ public class StoneGame {
      */
     public boolean stoneGame(int[] piles) {
         int n = piles.length;
+        //紀錄 n         拿頭  拿尾
         memo = new Integer[n][n]; // 每個指針有 n 個位置
         dfs(piles, 0, n - 1); // transfer to index
 
-        //        拿頭  拿尾
-        return memo[0][n - 1] > 0; // 拿到最後一個(dfs 最高層問題), 如果拿頭拿尾 > 0, 代表 Alice 贏
+        return memo[0][n - 1] > 0; // 拿到最後一個(dfs 最高層問題), 相減值 > 0, 代表 Alice 贏
     }
 
     private int dfs(int[] piles, int i, int j) {
@@ -72,7 +73,7 @@ public class StoneGame {
 
         if (memo[i][j] != null) return memo[i][j];
 
-        int res = Math.max(
+        int res = Math.max( // 層數相減值 > 0 說明 Alex 拿了這層之後肯定會贏
                 piles[i] - dfs(piles, i + 1, j), // 取頭, 子問題就變成 i + 1
                 piles[j] - dfs(piles, i, j - 1)); // 取尾, 子問題就變成 j - 1
 
