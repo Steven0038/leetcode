@@ -27,6 +27,16 @@ public class LongestPalindromicSubstring {
         System.out.println(ls.longestPalindrome(s2));
         System.out.println(ls.longestPalindrome(s3));
         System.out.println(ls.longestPalindrome2(s3));
+        /**
+         *                [i | (i+1, j-1) | j]
+         *       index                              (0,4)
+         *                                 /                      \
+         *                            (0,3)                      (1,4)
+         *                           /      \                   /       \
+         *                      (0,2)       (1,3)           (1,3)      (2,4)
+         *                      /   \        /  \            /  \     /     \
+         *                 (0,1)   (1,2) (1,2) (2,3)    (1,2)  (2,3) (2,3) (3,4)
+         */
     }
 
     Boolean[][] memo;
@@ -42,28 +52,32 @@ public class LongestPalindromicSubstring {
 
     // 2D DP dfs
     private boolean dfs(String s, int i, int j) {
+        // base case
         if (i >= j) {
-            if (lps.length() < j - i + 1) { // 當前的子問題長度 > lps
-                lps = s.substring(i, j + 1); // 更新 lps
-            }
+            updateLps(s, i, j);
             return true;
         }
 
         if (memo[i][j] != null) return memo[i][j];
 
         boolean res = false;
+        // recursion rule: 如果 i 跟 j 相等, 且中間子問題 (i + 1, j - 1) 也是回文字串, 則整個字串都是 回文
         // 每個長 n 的 string 都有二個 n-1 的 substring
         if (s.charAt(i) == s.charAt(j) && dfs(s, i + 1, j - 1)) { // 較大的字串範圍子問題,包含較小(就不用算else)
             res = true;
-            if (lps.length() < j - i + 1) { // 這邊的長度 + 1 是 index -> length 轉換
-                lps = s.substring(i, j + 1);
-            }
+            updateLps(s, i, j);
         } else { // 較小範圍的子問題(上面 res = false)
-            dfs(s, i + 1, j);
+            dfs(s, i + 1, j); // NOTE: 因為字串奇偶數的關係, 這邊是子問題是 sliding window 而非同時減去頭尾
             dfs(s, i, j - 1);
         }
 
         return memo[i][j] = res;
+    }
+
+    private void updateLps(String s, int i, int j) {
+        if (lps.length() < j - i + 1) { // 當前的子問題長度 > lps
+            lps = s.substring(i, j + 1); // 更新 lps
+        }
     }
 
     String res = "";
