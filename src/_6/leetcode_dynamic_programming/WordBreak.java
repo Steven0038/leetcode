@@ -37,7 +37,7 @@ public class WordBreak {
 
     /**
      * bottom up DFS,
-     * Time: O(n^2)
+     * Time: O(n^2),  n 個 char 元素 * n 個子問題
      * @param s given input string to check
      * @param wordDict list of substring
      * @return if s contains all the substring in wordDict

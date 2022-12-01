@@ -47,7 +47,7 @@ public class Subsets {
      */
     private List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
-        dfs(res, nums, new ArrayList<>(), 0);
+        dfs(res, nums, new ArrayList<>(), 0); // index + current subset 在這題可以定義一個子問題
 
         return res;
     }
