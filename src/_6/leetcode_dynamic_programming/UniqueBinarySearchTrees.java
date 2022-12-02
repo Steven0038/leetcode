@@ -35,11 +35,11 @@ public class UniqueBinarySearchTrees {
 
         /**
          * 用區間大小看子問題
-         *                                  [3]
+         *                                  [3] input n
          *               /                   |               \
          *  root1     [0,2]         root2 [1][1]     root3 [2,0]
-         *             / \                                 / \
-         *         [1]    [1]                            [1] [1]
+         *              / \                                / \
+         *           [1]  [1]                           [1] [1]
          */
 
         /**
@@ -47,8 +47,40 @@ public class UniqueBinarySearchTrees {
          *                                    [n]
          *                 /                   |                  \
          *            [0,n-1]           [n/2-1][n/2]            [n-1,0]
-         *             /  \                 /    \            /        \
-         *     [0,n-2]    [n-2,0]  [0,n/2-1]   [n/2-1,0]   [0,n-2]   [n-2,0]
+         *               /\                 /    \              /  \
+         *      [0,n-2]...[n-2,0]  [0,n/2-1]...[n/2-1,0]  [0,n-2]...[n-2,0]
+         */
+
+        /**
+         * @Link https://hackmd.io/@Yuan-Su/BkxjBqBu2u
+         * 先分解大問題 =>
+         * 整個n=3的case 可拆成 : root=1,2,3分別的所有解
+         * Sol(n=3) = sol(root =1) + sol(root =2) + sol(root=3)
+         *
+         * 再來解小問題 =>
+         *
+         * 當root =1:
+         * 依BST規則 左子<1 : 為空, 右子>1 : (2,3) ,
+         * 而2,3做不同BST等於於1,2做不同BST的解,所以sol({2,3}) = sol(n=2)
+         * 當root =2:
+         * 左子有1,右子有3 無其他選擇
+         * 當root =3:
+         * 左子有1,2 ,右子為空 ,sol({1,2}) =sol(n=2)
+         * 最後把上面結論化成通式 =>
+         * 當n=3 : sol(root =1) + sol(root =2) + sol(root=3)
+         *
+         * sol(root=1):
+         * 左子為空有sol(n=0)=1種組合,右子為{2,3}有sol(n=2)=2種組合 => 可組合數 sol(n=0)*sol(n=2) =2
+         * sol(root=2):
+         * 左子為1有sol(n=1)=1種組合,右子為3有sol(n=1)=1種組合 => 可組合數 sol(n=1)*sol(n=1) =1
+         * sol(root=3):
+         * 左子為{1,2}有sol(n=2)=2種組合,右子為空有sol(n=0)=1種組合 => 可組合數 sol(n=2)*sol(n=0) =2
+         * 通式 => sol(n=3) = sol(n=0)*sol(n=2) + sol(n=1)*sol(n=1) + sol(n=2)*sol(n=0) = 5
+         *
+         * 換個表示式 =>
+         * f(n) = f(0)*f(n-1) + f(1)*f(n-2)+ … + f(n-1)*f(0)
+         *
+         * 此式子即為大名鼎鼎的Catalan Number
          */
     }
 
@@ -75,8 +107,11 @@ public class UniqueBinarySearchTrees {
         }
 
         // [i - 1][i][n - i] 用區間大小看子問題
+        // size 為 n 的區間以 i 為 root, 向ˊ左右二邊子樹要答案
+        // 因為 BST 定義, 左子樹 root一定較小, 右子樹 root 一定較大
         int res = 0;
-        for (int i = 1; i <= n; i++) { // 以 i 為 root, 向ˊ左右二邊子樹要答案
+        // f(n) = f(0)*f(n-1) + f(1)*f(n-2)+ … + f(n-1)*f(0) => 可取 i range(1..n)
+        for (int i = 1; i <= n; i++) { // (ex: n = 3, 則可以使 1 or 2 or 3 為 root, 迴圈加總其子樹數量)
             int left = dfs(i - 1);
             int right = dfs(n - i);
             res += left * right; // 左右 unique 子樹的數量"相乘"(兩兩組合), 就會是 i 當前樹的數量
