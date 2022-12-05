@@ -37,22 +37,29 @@ package _6.leetcode_dynamic_programming;
 public class DecodeWays {
     public static void main(String[] args) {
 
-        /**                           226
+        /**
+         * "子問題分割形式為: 以字串最後 1 個 or 最後 2 個 char 進行切割"
+         *                            226
          *                          /     \
          *                    2 26(Z)    22 6(F)
          *                     |        /    \
          *                   2(B)    2 2(B)   22(V)
          *                            |
          *                          2(B)
+         * "base case 為: 分割至只剩一個 char"
          */
 
-        /**                             n
+        /**
+         * "子母狀態變化一個: 1D DP, n 為: 字串長度"
+         *                              n
          *                          /       \
          *                      n-2         n-1
          *                     /   |       /   \
          *                  N/A   n-3     n-3  n-2
          *
          *           NOTE: n-4 is N/A
+         *
+         *  "遞推關係為: n - 1 或 n - 2 (分割一個 char 或分割二個 char)"
          */
 
         DecodeWays dw = new DecodeWays();

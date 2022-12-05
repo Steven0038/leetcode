@@ -23,6 +23,8 @@ public class UniqueBinarySearchTrees {
         System.out.println(ub.numTrees(n));
         System.out.println(ub.numTrees2(n));
         /**
+         * "子問題分割形式為: 以不同數字為 root 進行切割"
+         *
          *                                [1,2,3]
          *          root1/              root2|            root3 \
          *            [][2,3]             [1][3]            [1,2][]
@@ -31,10 +33,13 @@ public class UniqueBinarySearchTrees {
          *
          * 可以發現中間那棵樹, ex:2-1-3, 跟 右邊子樹 3-1-2 是重複的,
          * 所以此題就是求 n = node 大小的, 左右子樹數量 (中間重複可以忽略), 而中間子樹為 unique 的左右子樹所組成
+         *
+         * "base case 為: n = 1 剩下一個元素"
          */
 
         /**
          * 用區間大小看子問題
+         *
          *                                  [3] input n
          *               /                   |               \
          *  root1     [0,2]         root2 [1][1]     root3 [2,0]
@@ -43,44 +48,19 @@ public class UniqueBinarySearchTrees {
          */
 
         /**
+         * "子母狀態變化一個: 1D DP, n 為: 連續數字區間大小"
+         *
          * 用區間長度 n 大小看子問題, 可以發現左右區間是鏡像的重複子問題
          *                                    [n]
          *                 /                   |                  \
          *            [0,n-1]           [n/2-1][n/2]            [n-1,0]
          *               /\                 /    \              /  \
          *      [0,n-2]...[n-2,0]  [0,n/2-1]...[n/2-1,0]  [0,n-2]...[n-2,0]
-         */
-
-        /**
-         * @Link https://hackmd.io/@Yuan-Su/BkxjBqBu2u
-         * 先分解大問題 =>
-         * 整個n=3的case 可拆成 : root=1,2,3分別的所有解
-         * Sol(n=3) = sol(root =1) + sol(root =2) + sol(root=3)
          *
-         * 再來解小問題 =>
+         * 『以i为根节点的树，其左子树由[0, i-1]构成， 其右子树由[i+1, n]构成。』这不就是 BST 的定义嘛！灵活运用下就能找到递推关系了。
+         * BST: 左子樹 node 值一定小於 root, 右子樹 node 值一定大於 root
          *
-         * 當root =1:
-         * 依BST規則 左子<1 : 為空, 右子>1 : (2,3) ,
-         * 而2,3做不同BST等於於1,2做不同BST的解,所以sol({2,3}) = sol(n=2)
-         * 當root =2:
-         * 左子有1,右子有3 無其他選擇
-         * 當root =3:
-         * 左子有1,2 ,右子為空 ,sol({1,2}) =sol(n=2)
-         * 最後把上面結論化成通式 =>
-         * 當n=3 : sol(root =1) + sol(root =2) + sol(root=3)
-         *
-         * sol(root=1):
-         * 左子為空有sol(n=0)=1種組合,右子為{2,3}有sol(n=2)=2種組合 => 可組合數 sol(n=0)*sol(n=2) =2
-         * sol(root=2):
-         * 左子為1有sol(n=1)=1種組合,右子為3有sol(n=1)=1種組合 => 可組合數 sol(n=1)*sol(n=1) =1
-         * sol(root=3):
-         * 左子為{1,2}有sol(n=2)=2種組合,右子為空有sol(n=0)=1種組合 => 可組合數 sol(n=2)*sol(n=0) =2
-         * 通式 => sol(n=3) = sol(n=0)*sol(n=2) + sol(n=1)*sol(n=1) + sol(n=2)*sol(n=0) = 5
-         *
-         * 換個表示式 =>
-         * f(n) = f(0)*f(n-1) + f(1)*f(n-2)+ … + f(n-1)*f(0)
-         *
-         * 此式子即為大名鼎鼎的Catalan Number
+         * "遞推關係為: 左樹為 n - 1, 右樹為 n - i"
          */
     }
 
@@ -124,6 +104,37 @@ public class UniqueBinarySearchTrees {
 
     // 正向填表: dfs 的 flow 反過來, 從底層子問題開始往大計算, 最終計算到頂層問題
     private int numTrees2(int n) {
+        /**
+         * @Link https://hackmd.io/@Yuan-Su/BkxjBqBu2u
+         * 先分解大問題 =>
+         * 整個n=3的case 可拆成 : root=1,2,3分別的所有解
+         * Sol(n=3) = sol(root =1) + sol(root =2) + sol(root=3)
+         *
+         * 再來解小問題 =>
+         *
+         * 當root =1:
+         * 依BST規則 左子<1 : 為空, 右子>1 : (2,3) ,
+         * 而2,3做不同BST等於於1,2做不同BST的解,所以sol({2,3}) = sol(n=2)
+         * 當root =2:
+         * 左子有1,右子有3 無其他選擇
+         * 當root =3:
+         * 左子有1,2 ,右子為空 ,sol({1,2}) =sol(n=2)
+         * 最後把上面結論化成通式 =>
+         * 當n=3 : sol(root =1) + sol(root =2) + sol(root=3)
+         *
+         * sol(root=1):
+         * 左子為空有sol(n=0)=1種組合,右子為{2,3}有sol(n=2)=2種組合 => 可組合數 sol(n=0)*sol(n=2) =2
+         * sol(root=2):
+         * 左子為1有sol(n=1)=1種組合,右子為3有sol(n=1)=1種組合 => 可組合數 sol(n=1)*sol(n=1) =1
+         * sol(root=3):
+         * 左子為{1,2}有sol(n=2)=2種組合,右子為空有sol(n=0)=1種組合 => 可組合數 sol(n=2)*sol(n=0) =2
+         * 通式 => sol(n=3) = sol(n=0)*sol(n=2) + sol(n=1)*sol(n=1) + sol(n=2)*sol(n=0) = 5
+         *
+         * 換個表示式 =>
+         * f(n) = f(0)*f(n-1) + f(1)*f(n-2)+ … + f(n-1)*f(0)
+         *
+         * 此式子即為大名鼎鼎的Catalan Number
+         */
         /**
          * 首先是1為根節點的狀況：
          * 左邊沒有比其小的節點，故只有一種可能；

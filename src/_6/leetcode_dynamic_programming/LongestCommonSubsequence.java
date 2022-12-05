@@ -24,6 +24,8 @@ public class LongestCommonSubsequence {
         System.out.println(lc.longestCommonSubsequence(text1, text2));
 
         /**
+         * "子問題分割形式為: 二個字串的最後一個 char 是否相等"
+         *
          * 假設長度 4 跟 長度 3 的字串做比較
          *                               (4, 3)
          *                              /      \
@@ -35,6 +37,10 @@ public class LongestCommonSubsequence {
          *                                / \
          *                         #(3,2)   (4,1)
          * # 重複子問題
+         *
+         * "base case 為: 比較到最後一個 char 是空字串"
+         * "子母狀態變化二個: 2D DP, i j 為二個比較字串的各自最後一個 char index"
+         * "遞推關係為: 最後一個 char 相等(i-1 AND j-1, count++ 收縮子問題), 或不相等(i-1 OR j-1 收縮子問題)"
          */
     }
 

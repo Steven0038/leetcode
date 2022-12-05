@@ -28,6 +28,8 @@ public class LongestPalindromicSubstring {
         System.out.println(ls.longestPalindrome(s3));
         System.out.println(ls.longestPalindrome2(s3));
         /**
+         * "子問題分割形式為: 如果當前字串減去頭 or 尾 的 char"
+         * 如果字串頭尾 char 相等, 且中間字串也是回文字串, 則整個字串都是 回文
          *                [i | (i+1, j-1) | j]
          *       index                              (0,4)
          *                                 /                      \
@@ -36,6 +38,10 @@ public class LongestPalindromicSubstring {
          *                      (0,2)       (1,3)           (1,3)      (2,4)
          *                      /   \        /  \            /  \     /     \
          *                 (0,1)   (1,2) (1,2) (2,3)    (1,2)  (2,3) (2,3) (3,4)
+         *
+         * "base case 為: 分割到空字串"
+         * "子母狀態變化二個: 2D DP, i j 為頭尾 char index"
+         * "遞推關係為: 頭尾 char index 收縮 (i + 1 or j - 1)"
          */
     }
 
