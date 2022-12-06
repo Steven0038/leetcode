@@ -59,6 +59,7 @@ public class WordBreak {
         //         子問題(0, j)     (j, n)
         // 如果 x 是 dict 中的一個單詞, 整個問題 [0, i) 就會是 true
         memo[sLen] = false;
+        // 從 index 0 開始遞迴尋找右邊的子字串在 wordDict 裡
         for (int j = 0; j < sLen; j++) { // for each sub-problem x
             boolean right = dict.contains(s.substring(j, sLen)); // 右邊 (j~len-1)
             if (!right) continue;
