@@ -56,7 +56,13 @@ public class LongestPalindromicSubstring {
         return lps;
     }
 
-    // 2D DP dfs
+    /**
+     * 2D DP dfs
+     * @param s input string
+     * @param i index from s head
+     * @param j index from s tail
+     * @return is string s palindrome
+     */
     private boolean dfs(String s, int i, int j) {
         // base case
         if (i >= j) {
