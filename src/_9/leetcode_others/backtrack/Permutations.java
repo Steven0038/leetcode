@@ -38,7 +38,7 @@ public class Permutations {
      * @param nums input array
      * @return List of Permutations
      */
-    private List<List<Integer>> permute(int[] nums) {
+    public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
         dfs(res, nums, 0);
 
