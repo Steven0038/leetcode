@@ -20,16 +20,24 @@ import java.util.stream.Collectors;
 public class Permutations {
     public static void main(String[] args) {
         Permutations pm = new Permutations();
-        int[] nums = new int[]{1, 2, 3};
+//        int[] nums = new int[]{1, 2, 3};
+        int[] nums = new int[]{1, 2, 3, 4, 5};
         System.out.println(pm.permute(nums));
         /**
+         *                            1      [1,2,3] -> 123   如果 dfs 不做 backtrack,下一步就會變成[1,2,3,4]
+         *                            |      [1,2,4] -> 124
+         *                            2      [1,2,5] -> 125
+         *                          / | \
+         *                         3  4  5
+         *
+         *
          *                         [1,2,3]
          *                  /         |            \
-         *          [1,2,3]        [2,1,3]          [3,2,1]   L1: index 0, n   possibilities
-         *                          /    \                    L2: index 1, n-1 possibilities
-         *                     [2,1,3]  [2,3,1]               L3: index 2, n-2 possibilities
+         *          [1#,2,3]       [2#,1,3]        [3#,2,1]   L1: index 0, n   possibilities
+         *                          /    \
+         *                   [2,1#,3]  [2,3#,1]               L2: index 1, n-1 possibilities
          *                        |        |
-         *                     [2,1,3]  [2,3,1]
+         *                   [2,1,3#]  [2,3,1#]              L3: index 2, n-2 possibilities
          */
     }
 
