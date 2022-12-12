@@ -20,9 +20,10 @@ import java.util.stream.Collectors;
 public class Permutations {
     public static void main(String[] args) {
         Permutations pm = new Permutations();
-//        int[] nums = new int[]{1, 2, 3};
-        int[] nums = new int[]{1, 2, 3, 4, 5};
+        int[] nums = new int[]{1, 2, 3};
+//        int[] nums = new int[]{1, 2, 3, 4, 5};
         System.out.println(pm.permute(nums));
+        System.out.println(pm.permute2(nums));
         /**
          *                            1      [1,2,3] -> 123   如果 dfs 不做 backtrack,下一步就會變成[1,2,3,4]
          *                            |      [1,2,4] -> 124
@@ -43,6 +44,7 @@ public class Permutations {
 
     /**
      * 返回所有給定的 array 元素的, 所有可能排序組合的 list
+     *
      * @param nums input array
      * @return List of Permutations
      */
@@ -74,5 +76,37 @@ public class Permutations {
         int tmp = nums[i1];
         nums[i1] = nums[i2];
         nums[i2] = tmp;
+    }
+
+    //ref: http://www.noteanddata.com/leetcode-46-Permutations-java-solution-note.html
+    public List<List<Integer>> permute2(int[] nums) {
+        List<List<Integer>> allList = new ArrayList<>();
+        helper(nums, 0, new ArrayList<>(), allList);
+        return allList;
+    }
+
+    /**
+     * 经典的backtrack（回溯法）， 有很多写法， 我个人认为下面的写法是比较简洁，并且比较通用的backtrack模版。
+     * 很多backtrack问题，都可以通过这个模版来针对不同的问题写。
+     * a. 基本思路就是模拟人肉枚举的过程，比如有三个数1,2,3
+     * b. 首先在第一个位置可以有三种可能，可以选择1，2，3里面的任何一个， 第二个位置就只能在剩下的两个数里面选一个，
+     * 最后一个位置就只能选最后一个数。
+     * c. 这个选数的过程，可以通过交换位置来实现，每次把当前可以选择的数(from到nums.length-1)换到最前面，
+     * 然后把这个数加到当前选项(cur)中, 然后递归。 递归完了以后， 要记得backtrack，就是reset到原始的状态，
+     * 相当于什么都没发生过，然后在for循环中继续下一轮。
+     * d. 递归需要有终止条件， 这里就是cur.size== nums.length, 说明已经递归到一个排列， 拷贝到allList里面
+     */
+    public void helper(int[] nums, int fromIdx, List<Integer> cur, List<List<Integer>> allList) {
+        if (cur.size() == nums.length) {
+            allList.add(new ArrayList<>(cur));
+            return;
+        }
+        for (int i = fromIdx; i < nums.length; ++i) {
+            swap(nums, fromIdx, i);
+            cur.add(nums[fromIdx]);
+            helper(nums, fromIdx + 1, cur, allList);
+            cur.remove(cur.size() - 1);
+            swap(nums, fromIdx, i);
+        }
     }
 }

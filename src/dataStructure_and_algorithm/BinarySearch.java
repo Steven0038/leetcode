@@ -10,9 +10,10 @@ public class BinarySearch {
     public static void main(String[] args) {
         int[] arr = {1, 2, 3, 4, 5, 6, 7}; // sorted array
         BinarySearch bs = new BinarySearch();
-
+        int target;
+        /**
         // ==== iterative solutions ====
-        int target = 6;
+        target = 6;
         // 1. 搜尋精確值
         System.out.println(Arrays.toString(arr));
         System.out.printf("搜尋精確值: target %s at index %s", target, bs.searchSpecificNum(arr, target));
@@ -44,6 +45,7 @@ public class BinarySearch {
         System.out.println(Arrays.toString(arr));
         System.out.printf("搜尋最接近的值: nearest element to target %s at index %s", target, bs.searchNearestOccurrence(arr, target));
         System.out.println();
+         **/
 
         // ==== recursive solutions (萬用, 如果沒要求用 iterative 實現, 學這個就好)====
         target = 1000;
@@ -70,10 +72,7 @@ public class BinarySearch {
 
             // 向左掃描加入重複的目標數 Index
             int tmpIndex = mid - 1;
-            while (true) {
-                if (tmpIndex < 0 || arr[tmpIndex] != target) {
-                    break;
-                }
+            while (tmpIndex > 0 && arr[tmpIndex] == target) {
                 resIndexes.add(tmpIndex);
                 tmpIndex -= 1;
             }
@@ -83,10 +82,7 @@ public class BinarySearch {
 
             // 向右掃描
             tmpIndex = mid + 1;
-            while (true) {
-                if (tmpIndex > right || arr[tmpIndex] != target) {
-                    break;
-                }
+            while (tmpIndex < right && arr[tmpIndex] == target) {
                 resIndexes.add(tmpIndex);
                 tmpIndex += 1;
             }
