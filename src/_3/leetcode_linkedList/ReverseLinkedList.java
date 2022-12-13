@@ -41,7 +41,17 @@ public class ReverseLinkedList {
         } 
         node = prev; 
         return node; 
-    } 
+    }
+
+    private Node reverseRecursive(Node node) {
+        if (node == null || node.next == null) {
+            return node;
+        }
+        Node reversedHead = reverseRecursive(node.next);
+        node.next.next = node;
+        node.next = null;
+        return reversedHead;
+    }
   
     // prints content of double linked list 
     void printList(Node node) { 

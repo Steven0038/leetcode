@@ -40,19 +40,19 @@ public class DailyTemperatures {
         int len = tmpArr.length;
         int[] res = new int[len];
         // <Index of tmp array>
-        Deque<Integer> stack = new ArrayDeque<>();
+        Deque<Integer> idxStack = new ArrayDeque<>();
         for (int i = len - 1; i >= 0; i--) { // 從後開始遍歷數列
-            while (!stack.isEmpty() && tmpArr[i] >= tmpArr[stack.peek()]) {
-                stack.pop(); // pop 掉比當前 T[i] 小的 元素 index
+            while (!idxStack.isEmpty() && tmpArr[i] >= tmpArr[idxStack.peek()]) {
+                idxStack.pop(); // pop 掉比當前 T[i] 小的 元素 index
             }
-//            res[i] = stk.isEmpty() ? 0 : stk.peek() - i;
-            if (stack.isEmpty()) {
+//            res[i] = idxStack.isEmpty() ? 0 : idxStack.peek() - i;
+            if (idxStack.isEmpty()) {
                 res[i] = 0;
             } else {
-                res[i] = stack.peek() - i; // 計算棧頂比當前元素大的下一個元素之間的距離,並存入返回值
+                res[i] = idxStack.peek() - i; // 核心算法: 計算棧頂比當前元素大的下一個元素之間的距離,並存入返回值
             }
 
-            stack.push(i); // 放入當前元素 index
+            idxStack.push(i); // 放入當前元素 index
         }
 
         return res;

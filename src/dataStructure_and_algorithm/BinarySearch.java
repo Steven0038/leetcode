@@ -66,7 +66,7 @@ public class BinarySearch {
         if (target > midVal) {
             return searchMultipleOccurrence(arr, mid + 1, right, target);
         } else if (target < midVal) {
-            return searchMultipleOccurrence(arr, left, right - 1, target);
+            return searchMultipleOccurrence(arr, left, mid - 1, target);
         } else { // 已找到目標數
             ArrayList<Integer> resIndexes = new ArrayList<>();
 
