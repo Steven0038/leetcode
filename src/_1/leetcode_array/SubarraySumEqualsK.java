@@ -65,7 +65,8 @@ public class SubarraySumEqualsK {
         // -------------------
         for (int num : nums) {
             sum += num; // 當前的前綴和
-            if (map.containsKey(sum - k)) {
+            if (map.containsKey(sum - k)) { // 核心算法: 如果(當前加總 sum - 目標和 k)的值, 存在於元素前綴和 map.key,
+                                           // 代表當前加總至少有一個 subarray 的和為 k
                 res += map.get(sum - k);
             }
             map.put(sum, map.getOrDefault(sum, 0) + 1);
