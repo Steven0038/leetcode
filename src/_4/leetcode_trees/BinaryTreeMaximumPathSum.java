@@ -58,8 +58,8 @@ public class BinaryTreeMaximumPathSum {
         // 只能走人字形 path, 除了 root, 不能走二個左右節點,否則就不是單邊人字形路徑(意即子節點都是回傳最大的單邊)
         int left = dfs(node.left);
         int right = dfs(node.right);
-        left = left < 0 ? 0 : left; // 如果一邊的值是負值,就不要走,直接取0
-        right = right < 0 ? 0 : right;
+        left = Math.max(left, 0); // 如果一邊的值是負值,就不要走,直接取0
+        right = Math.max(right, 0);
         max = Math.max(max, left + right + node.val); // 最大路徑值必須用 global val 動態取值
 
         return Math.max(node.val + left, node.val + right); // 一次只能回傳一邊

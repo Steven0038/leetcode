@@ -66,8 +66,8 @@ public class SumRootToLeafNumber {
         num = num * 10 + node.val;
 
         if (node.left == null && node.right == null) {
-            sum += num; // NOTE: early return, 當左右節點都是 null 就 return,
-            return; // 不然如果 null 才 return, 同一個底部葉節點會多算一次 sum += num
+            sum += num; // NOTE: early return, 當左右節點都是 null 才 return,
+            return; // 不然如果 null 就 return, 同一個底部葉節點會多算一次 sum += num
         }
 
         if (node.left != null) {
