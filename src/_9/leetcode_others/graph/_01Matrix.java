@@ -38,7 +38,7 @@ public class _01Matrix {
 
     /**
      * Time: O(mn), Space: O(mn)
-     *
+     * 找尋給定 2d matrix 中, 所有非 0 數值到最近 0 的距離的 2d matrix
      * @param mat input matrix
      * @return distance of the nearest 0 matrix
      */
@@ -46,10 +46,10 @@ public class _01Matrix {
         int m = mat.length, n = mat[0].length;
         int[][] res = new int[m][n];
 
-        // 將所有數值為零的節點標記為訪問過, 並放入queue之後作為檢查 starting point (檢查從0走到1所需步數)
+        // 將所有數值為零的節點標記為訪問過, 並放入 queue 中作為 bfs 的起點 (檢查從 0 走到 1 所需步數)
         boolean[][] visited = new boolean[m][n]; // 訪問過的節點
         Queue<int[]> queue = new LinkedList<>(); // i j
-        for (int i = 0; i < m; i++) { // 將所有的 0 節點作為初始 starting point
+        for (int i = 0; i < m; i++) { // 將所有的 0 節點作為 bfs 初始起點
             for (int j = 0; j < n; j++) {
                 if (mat[i][j] == 0) {
                     queue.offer(new int[]{i, j});
@@ -58,7 +58,7 @@ public class _01Matrix {
             }
         }
 
-        // 逆向思維, 對於所有的0, 利用 bfs 填充到每一個 1 的距離(如此 1 的位置一定會被最近的 0 更新, 題目是問 1 與最近的 0 的距離)
+        // 逆向思維, 對於所有的 0 做為起點出發, 利用 bfs 填充到每一個 1 的距離,也就是 bfs 的 cost 層數 (如此 1 的位置一定會被最近的 0 更新, 題目是問 1 與最近的 0 的距離)
         // 遍歷 queue 裡的 0 節點, 搜尋上下左右不是 0 的節點, 如果發現就把其離 0 節點的層數放入回傳 matrix
         int cost = 0; // level 層數
         while (!queue.isEmpty()) {
@@ -70,7 +70,7 @@ public class _01Matrix {
                     res[x][y] = cost; // 1 走到最近的0 需要 cost 步
                 }
 
-                // 查看上下左右是否有未訪問的鄰居節點
+                // 查看 cur 上下左右是否有未訪問的鄰居節點
                 for (int[] dir : dirs) {
                     int xP = x + dir[0], yP = y + dir[1];
                     if (xP >= 0 && xP < m && yP >= 0 && yP < n && !visited[xP][yP]) {
