@@ -81,7 +81,7 @@ public class WordLadder {
         Map<String, List<String>> graph = new HashMap<>(); // adjacency list map graph
         int n = wordList.size();
         // n^2 節點互相尋找是否符合相連條件,以構成圖
-        for (int i = 0; i < n - 1; i++) { // NOTE: n-1
+        for (int i = 0; i < n - 1; i++) { // NOTE: n-1 (兩兩互相尋找不重複組合 or 暴力解的起手式)
             for (int j = i + 1; j < n; j++) { // NOTE: n
                 String w1 = wordList.get(i), w2 = wordList.get(j);
                 if (oneChangeAway(w1, w2)) {
