@@ -8,7 +8,7 @@ import java.util.*;
  * There are n cities connected by some number of flights. You are given an array flights where flights[i] = [fromi, toi, pricei] indicates that there is a flight from city fromi to city toi with cost pricei.
  * <p>
  * You are also given three integers src, dst, and k, return the cheapest price from src to dst with at most k stops. If there is no such route, return -1.
- *
+ * <p>
  * There will not be any multiple flights between two cities.
  * <p>
  * Example 1:
@@ -56,82 +56,44 @@ public class CheapestFlightsWithinKStops {
      * @see NetWorkDelayTime
      */
     private int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
-        Map<Integer, List<int[]>> map = new HashMap<>(); // demo 偷懶用 int[]不用 Cell
-        for (int[] flight : flights) {
-            List<int[]> to = map.getOrDefault(flight[0], new ArrayList<>());
-            to.add(new int[]{flight[1], flight[2]});
-            map.put(flight[0], to);
-        }
+        // build graph
+        Map<Integer, List<Cell>> graph = new HashMap<>();
+        for (int[] flight : flights)
+            graph.computeIfAbsent(flight[0], value -> new ArrayList<>()).add(new Cell(flight[1], flight[2], 0));
 
-        // 題目有提到 There will not be any multiple flights between two cities., 所以不會有環,不需要查重紀錄訪問過的節點
+        int[] stops = new int[n];
+        Arrays.fill(stops, Integer.MAX_VALUE);
+        PriorityQueue<Cell> heap = new PriorityQueue<>(Comparator.comparingInt(c -> c.price)); // use heap to do Dijsktra
+        heap.offer(new Cell(src, 0, 0));
 
-        PriorityQueue<Cell> heap = new PriorityQueue<>();
-        heap.offer(new Cell(src, k, 0));
         while (!heap.isEmpty()) {
             Cell curr = heap.poll();
-            if (curr.dst == dst) return curr.price; // heap 永遠是最優的, 所以到達就直接返回
-            if (curr.stop >= 0 && map.containsKey(curr.dst)) { // 用減到0的方式限制轉機次數(stop) k
-                for (int[] next : map.get(curr.dst)) {
-                    heap.offer(new Cell(next[0], curr.stop - 1, curr.price + next[1]));
-                }
+            int node = curr.node;
+            int price = curr.price;
+            int steps = curr.steps;
+            // We have already encountered a path with a lower cost and fewer stops,
+            // or the number of stops exceeds the limit.
+            if (steps > stops[node] || steps > k + 1) continue;
+            stops[node] = steps;
+            if (node == dst)
+                return price; // heap 永遠是最優的, 所以到達就直接返回
+            if (!graph.containsKey(node)) continue;
+            for (Cell nei : graph.get(node)) {
+                heap.offer(new Cell(nei.node, price + nei.price, steps + 1)); // 累加票價與轉機次數
             }
         }
-
         return -1;
     }
 
-    class Cell implements Comparable<Cell> {
-        int dst, stop, price;
+    class Cell {
+        int node;
+        int price;
+        int steps;
 
-        Cell(int dst, int stop, int price) {
-            this.dst = dst;
-            this.stop = stop;
+        Cell(int node, int price, int steps) {
+            this.node = node;
             this.price = price;
-        }
-
-        public int compareTo(Cell other) {
-            return price - other.price;
+            this.steps = steps;
         }
     }
-
-//    private int findCheapestPrice(int n, int[][] flights, int  src, int dst, int k) {
-//        // build graph
-//        Map<Integer, List<Cell>> graph = new HashMap<>();
-//        for (int[] flight : flights) {
-//            List<Cell> nextStops = graph.getOrDefault(flight[0], new ArrayList<>());
-//            nextStops.add(new Cell(flight[1], flight[2], k));
-//            graph.put(flight[0], nextStops);
-//        }
-//
-//        // use heap do dijstra
-//        PriorityQueue<Cell> heap = new PriorityQueue<>(Comparator.comparingInt(cell -> cell.price));
-//        heap.add(new Cell(src, 0, k));
-//
-//        while (!heap.isEmpty()) {
-//            Cell curr = heap.poll();
-//            if (curr.dest == dst)
-//                return curr.price;
-//            // add all next stops to heap
-//            if (curr.transCount >= 0 && graph.containsKey(curr.dest)) {
-//                for (Cell next : graph.get(curr.dest)) {
-//                    heap.add(new Cell(next.dest, curr.price + next.price, curr.transCount - 1));
-//                }
-//            }
-//        }
-//
-//        return -1;
-//    }
-//
-//    class Cell {
-//        int dest;
-//        int price;
-//        int transCount;
-//
-//        Cell(int dest, int price, int transCount) {
-//            this.dest = dest;
-//            this.price = price;
-//            this.transCount = transCount;
-//        }
-//    }
-
 }

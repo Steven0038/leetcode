@@ -64,14 +64,14 @@ public class NetWorkDelayTime {
         heap.offer(new Cell(k, 0)); // 初始化 heap, 由於初始是 K 到 K node 的 cost, 是故以下的 Cell cost 都會是從起點 K 到 cell node 的 cost
         while (!heap.isEmpty()) {
             Cell cur = heap.poll(); // heap 永遠會從棧頂拉出最小 time cost Cell, 是故只要 heap 有最小路徑數據, 就從最小路徑繼續往鄰接節點找
-            if (visitedCosts.containsKey(cur.node)) continue; // is visited (展開過就不需重複展開, 不然如果有環會死循環)
+            if (visitedCosts.containsKey(cur.node)) continue; // is visited (Dijsktra: 展開過就不需重複展開, 不然如果有環會死循環)
             visitedCosts.put(cur.node, cur.time); // 更新該節點從起點到該節點的路徑數據 cost
 
             // 如果有 neighbor, 就向 heap 添加其所有鄰居的路徑數據
             if (graph.containsKey(cur.node)) {
                 for (Cell nei : graph.get(cur.node)) {
 //                    if (!visitedCosts.containsKey(nei.node)) { // 可以不檢查,單純優化
-                        // 向 heap 添加路徑數據(同一node 可能會被從不同路徑添加多次, 但 heap 會取最小 time 在棧頂)
+                        // 向 heap 添加路徑數據(Dijsktra: 同一 node 可能會被從不同路徑添加多次, 但 heap 會取最小 time 在棧頂)
                         heap.offer(new Cell(nei.node, cur.time + nei.time)); // 核心算法,更新cost: 起點到當前節點的最優路徑cost+當前節點到鄰居節點的cost
 //                    }
                 }
