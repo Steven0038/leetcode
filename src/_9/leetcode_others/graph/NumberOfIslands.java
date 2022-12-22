@@ -31,7 +31,6 @@ public class NumberOfIslands {
         System.out.println(noi.numIslands(grid));
     }
 
-    int[][] dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}}; // 上下左右
 
     /**
      * 遍歷 matrix 圖, 遇到是 1 的元素就當成起始節點就 count++ 島數, 並進行 bfs 將其相連的 1 節點消除,
@@ -54,18 +53,19 @@ public class NumberOfIslands {
                 }
             }
         }
-
         return count;
     }
 
+    int[][] dirs = {{0, 1},{0, -1}, {-1, 0}, {1, 0}};  // 上下左右
     private void dfs(char[][] grid, int i, int j) {
         grid[i][j] = '0'; // pre-order 直接將1改成0, 代表訪問過(取代使用 set 紀錄)
+
         for (int[] dir : dirs) {
-            int x = i + dir[0], y = j + dir[1];
-            if (x < 0 || x >= grid.length || y < 0 || y >= grid[0].length || grid[x][y] == '0') {
-                continue;
+            int x = i + dir[0];
+            int y = j + dir[1];
+            if (x >= 0 && x < grid.length && y >= 0 && y < grid[0].length && grid[x][y] == '1') {
+                dfs(grid, x, y);
             }
-            dfs(grid, x, y);
         }
     }
 
