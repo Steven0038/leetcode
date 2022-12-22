@@ -61,8 +61,8 @@ public class CheapestFlightsWithinKStops {
         for (int[] flight : flights)
             graph.computeIfAbsent(flight[0], value -> new ArrayList<>()).add(new Cell(flight[1], flight[2], 0));
 
-        int[] stops = new int[n];
-        Arrays.fill(stops, Integer.MAX_VALUE);
+//        int[] stops = new int[n]; Arrays.fill(stops, Integer.MAX_VALUE);
+        Map<Integer, Integer> visited = new HashMap<>();
         PriorityQueue<Cell> heap = new PriorityQueue<>(Comparator.comparingInt(c -> c.price)); // use heap to do Dijsktra
         heap.offer(new Cell(src, 0, 0));
 
@@ -73,10 +73,14 @@ public class CheapestFlightsWithinKStops {
             int steps = curr.steps;
             // We have already encountered a path with a lower cost and fewer stops,
             // or the number of stops exceeds the limit.
-            if (steps > stops[node] || steps > k + 1) continue;
-            stops[node] = steps;
+//            if (steps > stops[node] || steps > k + 1) continue; stops[node] = steps;
+            int prevSteps = visited.getOrDefault(node, Integer.MAX_VALUE); // NOTE
+            if (steps > prevSteps || steps > k + 1) continue;
+            visited.put(node, steps);
+
             if (node == dst)
                 return price; // heap 永遠是最優的, 所以到達就直接返回
+
             if (!graph.containsKey(node)) continue;
             for (Cell nei : graph.get(node)) {
                 heap.offer(new Cell(nei.node, price + nei.price, steps + 1)); // 累加票價與轉機次數
