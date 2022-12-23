@@ -115,7 +115,7 @@ public class LongestPalindromicSubstring {
             left--;
             right++;
         }
-        String cur = s.substring(left + 1, right);
+        String cur = s.substring(left + 1, right); // NOTE: 上面 while 判斷邊界時最後多擴增一步, 所以要加回去
         if (cur.length() > res.length()) {
             res = cur;
         }
