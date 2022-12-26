@@ -64,7 +64,7 @@ public class UniqueBinarySearchTrees {
          */
     }
 
-    Integer[] memo;
+    Integer[] memo; // NOTE: Integer array 才會有初始值 null, 不然的話 memo[n] 不能用 != 運算比較
 
     /**
      * top-down DP

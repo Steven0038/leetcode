@@ -53,10 +53,10 @@ public class Subsets {
     }
 
     /**
-     * dfs recursive, 可以當作一個 DP, 用子問題紀錄解決母問題,
+     * top down dfs recursive, 可以當作一個 DP, 用子問題紀錄解決母問題,
      * @param res 題目要求的 subsets
      * @param nums input elements array
-     * @param cur 當前 top down dfs 的 list
+     * @param cur 當前 dfs 的 list
      * @param index 當前 dfs 層數 所需判斷是否要加入的 nums array 元素 index
      */
     private void dfs(List<List<Integer>> res, int[] nums, List<Integer> cur, int index) {
