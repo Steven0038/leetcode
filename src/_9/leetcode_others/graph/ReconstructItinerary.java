@@ -72,6 +72,6 @@ public class ReconstructItinerary {
         while (!neis.isEmpty()) {
             dfs(res, graph, neis.poll());
         }
-        res.add(0, cur); // 插在最前面
+        res.add(0, cur); // NOTE: post-order & 插在最前面,意即 recursive 最後作的會在最前面
     }
 }

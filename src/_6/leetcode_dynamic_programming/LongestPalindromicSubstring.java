@@ -66,7 +66,7 @@ public class LongestPalindromicSubstring {
     private boolean dfs(String s, int i, int j) {
         // base case
         if (i >= j) {
-            updateLps(s, i, j);
+            updateLps(s, i, j); // test case : s = "a", 所以這邊也要做 update
             return true;
         }
 

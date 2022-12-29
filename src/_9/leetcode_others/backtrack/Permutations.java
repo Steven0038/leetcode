@@ -24,6 +24,7 @@ public class Permutations {
 //        int[] nums = new int[]{1, 2, 3, 4, 5};
         System.out.println(pm.permute(nums));
         System.out.println(pm.permute2(nums));
+        System.out.println(pm.permute3(nums));
         /**
          *                            1      [1,2,3] -> 123   如果 dfs 不做 backtrack,下一步就會變成[1,2,3,4]
          *                            |      [1,2,4] -> 124
@@ -43,6 +44,7 @@ public class Permutations {
     }
 
     /**
+     * 鄰里互換法1
      * 返回所有給定的 array 元素的, 所有可能排序組合的 list
      *
      * @param nums input array
@@ -78,7 +80,10 @@ public class Permutations {
         nums[i2] = tmp;
     }
 
-    //ref: http://www.noteanddata.com/leetcode-46-Permutations-java-solution-note.html
+    /**
+     * 鄰里互換法2
+     * ref: http://www.noteanddata.com/leetcode-46-Permutations-java-solution-note.html
+     */
     public List<List<Integer>> permute2(int[] nums) {
         List<List<Integer>> allList = new ArrayList<>();
         helper(nums, 0, new ArrayList<>(), allList);
@@ -108,5 +113,35 @@ public class Permutations {
             cur.remove(cur.size() - 1);
             swap(nums, fromIdx, i);
         }
+    }
+
+    List<List<Integer>> list;
+
+    /**
+     * 回朔法: 效率較差
+     * ref. https://segmentfault.com/a/1190000040142137
+     */
+    public List<List<Integer>> permute3(int[] nums) {
+        list = new ArrayList<>();//最终的结果
+        List<Integer> team = new ArrayList<>();//回溯过程收集元素
+        boolean[] visits = new boolean[nums.length];//用来标记
+        dfs(visits, nums, team, 0);
+        return list;
+    }
+
+    private void dfs(boolean[] visits, int[] nums, List<Integer> team, int index) {
+        int len = nums.length;
+        if (index == len) { // 停止
+            list.add(new ArrayList<>(team));
+        } else
+            for (int i = 0; i < len; i++) {
+                if (visits[i]) //当前数字被用过 当前即不可用
+                    continue;
+                team.add(nums[i]);
+                visits[i] = true;//标记该元素被使用
+                dfs(visits, nums, team, index + 1);
+                visits[i] = false;// 还原
+                team.remove(index);//将结果移除临时集合
+            }
     }
 }
