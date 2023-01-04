@@ -23,6 +23,7 @@ public class PermutationsII {
     }
 
     /**
+     * 有重複序列的全排列
      * 返回所有給定的 array 元素的, 所有可能排序組合的 list (元素可以重複)
      *
      * @param nums input array

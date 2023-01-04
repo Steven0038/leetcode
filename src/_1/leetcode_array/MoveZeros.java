@@ -28,20 +28,20 @@ public class MoveZeros {
 	
 	public void moveZeros(int[] nums) {// Input: [0,1,0,3,12] Output: [1,3,12,0,0]
 		// find not zero and insert to the zero position
-		int count = 0; // Count of non-zero elements
+		int pointer = 0; // Count of non-zero elements
 
 		for (int i = 0; i < nums.length; i++) {
 			if (nums[i] != 0) {
-				nums[count] = nums[i]; // here count is incremented
-				count++;// ³o­Ó¦ì¸m¥²©w¬O¤w¸g²¾¨ì«e­±ªº«D¹s¼Æ©ÎªÌ¬O¹s
+				nums[pointer] = nums[i]; // here count is incremented
+				pointer++; // é€™å€‹ä½ç½®å¿…å®šæ˜¯å·²ç¶“ç§»åˆ°å‰é¢çš„éžé›¶æ•¸æˆ–è€…æ˜¯é›¶
 			}
 
 		}
 
-		// Make all elements 0 from count to end.
-		while (count < nums.length) {
-			nums[count] = 0;
-			count++;
+		// Make all elements 0 from pointer to end.
+		while (pointer < nums.length) {
+			nums[pointer] = 0;
+			pointer++;
 		}
 
 	}

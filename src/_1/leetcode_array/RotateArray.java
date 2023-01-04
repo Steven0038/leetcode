@@ -25,21 +25,32 @@ public class RotateArray {
 
 	// insert solution
 	public void rotate(int[] nums, int k) {
-		
-		for (int j = 0; j < k; j++) {
-			int key = nums[nums.length - 1];// ­nÂ½Âàªº¹ï¶H
-			int i = nums.length - 1;
-			while(i > 0) {// °£¤F­nÂ½Âàªº¹ï¶H, ¨C­Ó³£¦V«á°h¤@®æ
-				nums[i] = nums[i - 1];
-				i--;
-			}
-			nums[0] = key;//§â­nÂ½Âàªº¹ï¶H¥á¨ì³Ì«e­±
+		int len = nums.length;
+
+		// If arr is rotated n times then you get the same array
+		while(k > len) { // [1,2] k = 3 =>[2,1]; [1,2] k = 1 =>[2,1];
+			k = k - len;
+		}
+
+		// Creating a temporary array of size len
+		int[] tmp = new int[len - k];
+
+		// 1. copy first len-k element to tmp array
+//		if (len - k >= 0) System.arraycopy(nums, 0, tmp, 0, len - k);
+		for(int i = 0; i < len - k; i++) {
+			tmp[i] = nums[i];
+		}
+
+		// 2. moving the rest element to index zero to k
+		for(int i = len - k; i < len; i++) {
+			nums[i - len + k] = nums[i]; //  nums[] = [4, 5], å°‡ len - k ç§»åˆ° 0 index é–‹å§‹(i - len + k = 0)
+		}
+
+		// 3. copying the temp array element to nums
+		for(int i = 0; i < tmp.length; i++) {
+			nums[i + k] = tmp[i]; // Output nums[] = [4, 5, 1, 2, 3]  NOTE: i + k
 		}
 	}
-	
-	
-	
-	
 	
 //	public void rotate(int[] nums, int k) {
 //		int[] tmp = new int[nums.length];

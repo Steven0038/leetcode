@@ -57,7 +57,7 @@ public class TwoSum {
 
 		for (int i = 0; i < map.size(); i++) {
 			for (int key : map.keySet()) {
-				if (map.get(i) + map.get(key) == target && i != key) {
+				if (map.get(i) + map.get(key) == target && i != key) { // NOTE: 一定要檢查 i != key, 不然會重複
 					return new int[] { i, key };
 				}
 			}

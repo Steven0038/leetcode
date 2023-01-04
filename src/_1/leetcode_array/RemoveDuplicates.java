@@ -31,7 +31,7 @@ public class RemoveDuplicates {
 	 */
 	public int removeDuplicates(int[] nums) {
 
-		int fast = 1; // iterator through array
+		int fast = 1; // iterator through array, could be 0
 		int slow = 0; // current index
 		for (; fast < nums.length; fast++) {
 			if (nums[fast] != nums[slow]) { // new number

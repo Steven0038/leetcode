@@ -43,7 +43,8 @@ public class SingleNumber {
 	 * @param nums
 	 * @return
 	 */
-	public int singleNumber(int[] nums) {
+	public int singleNumber(int[] nums)
+	{
 		int ans = 0;
 
 		int len = nums.length;
@@ -51,8 +52,20 @@ public class SingleNumber {
 			ans ^= nums[i];
 
 		return ans;
-
 	}
+
+//	public int singleNumber(int[] nums) {
+//		Map<Integer, Integer> counter = new HashMap<>();
+//		for (int n : nums) {
+//			counter.put(n, counter.getOrDefault(n, 0) + 1);
+//		}
+//
+//		for (int k : counter.keySet()) {
+//			if (counter.get(k) == 1) return k;
+//		}
+//
+//		return 0;
+//	}
 
 //	public int singleNumber(int[] nums) {
 //		// number , counts
