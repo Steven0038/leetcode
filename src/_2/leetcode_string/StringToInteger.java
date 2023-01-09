@@ -56,53 +56,85 @@ public class StringToInteger {
 	public static void main(String[] args) {
 		StringToInteger st = new StringToInteger();
 //		String str = "   -42";
-		String str = "   ";
+//		String str = "   ";
+		String str = "42";
 
-		System.out.print(st.myAtoi(str));
+		System.out.println(st.myAtoi(str));
 	}
 
 	private int myAtoi(String str) {
-		// check not null, empty string and check space
-		if (str.isEmpty() || str == null) {
-			return 0;
-		}
-		
-		str = str.trim();// trim the front space
+		if(str == null || str.isEmpty()) return 0;
 
-		System.out.println(" 123: " + str.equals(""));
-		System.out.println(" 456: " + str.isEmpty());
+		str = str.trim();
 
-		if (str.equals("")) {
-			return 0;
+		if(str.isEmpty()) return 0;
+
+		int signal = 1;
+		long retNum = 0;
+		int index = 0;
+
+		if(str.charAt(0) == '-') {
+			signal = -1;
+			index++;
+		} else if(str.charAt(0) == '+'){
+			index++;
 		}
-		
-		int sign = 1;
-		int start = 0;
-		
-		// check minus
-		if (str.charAt(0) == '+') {
-			start++;
-		} else if (str.charAt(0) == '-') {
-			sign = -1;
-			start++;
-		}
-		
-		long sum = 0;
-		// check is digit 
-		for (int i = start; i < str.length(); i++) {
-			if (!Character.isDigit(str.charAt(i))) {
-				return (int)sum * sign;
-			}
-			sum = sum * 10 + (str.charAt(i) - '0');	// ANSII calculation
-			if (sign == 1 && sum > Integer.MAX_VALUE) {
-				return Integer.MAX_VALUE;
-			} else if (sign == -1 && sum * -1 < Integer.MIN_VALUE) {
-				return Integer.MIN_VALUE;
+
+		for(int i = index; i < str.length(); i++) {
+			if(Character.isDigit(str.charAt(index))) {
+				char c = str.charAt(index);
+				retNum = retNum * 10 + (c - '0');
+			} else {
+				return signal * (int)retNum;
 			}
 		}
-		
-		// check is out of range or not
-		return (int)sum * sign;
+
+		return signal * (int)retNum;
+
+
+
+
+//		// check not null, empty string and check space
+//		if (str.isEmpty() || str == null) {
+//			return 0;
+//		}
+//
+//		str = str.trim();// trim the front space
+//
+//		System.out.println(" 123: " + str.equals(""));
+//		System.out.println(" 456: " + str.isEmpty());
+//
+//		if (str.equals("")) {
+//			return 0;
+//		}
+//
+//		int sign = 1;
+//		int start = 0;
+//
+//		// check minus
+//		if (str.charAt(0) == '+') {
+//			start++;
+//		} else if (str.charAt(0) == '-') {
+//			sign = -1;
+//			start++;
+//		}
+//
+//		long sum = 0;
+//		// check is digit
+//		for (int i = start; i < str.length(); i++) {
+//			if (!Character.isDigit(str.charAt(i))) {
+//				return (int)sum * sign;
+//			}
+//			sum = sum * 10 + (str.charAt(i) - '0');	// ANSII calculation
+//			if (sign == 1 && sum > Integer.MAX_VALUE) {
+//				return Integer.MAX_VALUE;
+//			} else if (sign == -1 && sum * -1 < Integer.MIN_VALUE) {
+//				return Integer.MIN_VALUE;
+//			}
+//		}
+//
+//		// check is out of range or not
+//		return (int)sum * sign;
 	}
 	
 //	public int myAtoi(String str) {

@@ -65,6 +65,14 @@ public class ValidAnagram {
             if (!Objects.equals(countS.get(t.charAt(i)), countT.get(t.charAt(i)))) return false;
         }
 
+        // NOTE: 不能這樣寫, 因為 != 與 == 是比較"reference",
+        // Integer 是 object, 就算值一樣, 但用 == 比較就會是 false
+//        for(int i = 0; i < t.length(); i++){
+//            if(countT.get(t.charAt(i)) != countS.get(t.charAt(i))) {
+//                return false;
+//            }
+//        }
+
         return true;
 
     }
