@@ -63,17 +63,17 @@ public class ValidateBinarySearchTree {
 		Stack<TreeNode> stack = new Stack<>();
 		TreeNode pre = null;
 		while (root != null || !stack.isEmpty()) {
-			while (root != null) { // ±N³Ì¥ªªº¥þ³¡¥[¨ì stack ¤¤, ª½¨ì¸I¨ì©³
+			while (root != null) { // å°‡æœ€å·¦çš„å…¨éƒ¨åŠ åˆ° stack ä¸­, ç›´åˆ°ç¢°åˆ°åº•
 				stack.push(root);
 				root = root.left;
 			}
 
-			root = stack.pop(); // ¦AºCºC¦a±q©³¦R¥X¨Ó,
-			// ¥u­n¦R¥X¨Óªº©³ªº«e¤@­Ó¤£¬O null, ´N¤ñ¸û¤j¤p, «e¤@­Ó¦b¥ª, ¦R¥X¨Óªº¦b¥k, «e¤@­Ó < ¦R¥X¨Ó
+			root = stack.pop(); // å†æ…¢æ…¢åœ°å¾žåº•åå‡ºä¾†,
+			/// åªè¦åå‡ºä¾†çš„åº•çš„å‰ä¸€å€‹ä¸æ˜¯ null, å°±æ¯”è¼ƒå¤§å°, å‰ä¸€å€‹åœ¨å·¦, åå‡ºä¾†çš„åœ¨å³, å‰ä¸€å€‹ < åå‡ºä¾†
 			if (pre != null && root.val <= pre.val)
 				return false;
 			pre = root;
-			root = root.right; // ¥u­n¥kÃäªº¸`ÂI¤£¬O null ¡A´NÄ~Äò¶i¦æ stack push °Ê§@, ¬O null ´N Ä~Äò pop °Ê§@, ¦pªG¥kÃäÁÙ¦³ªF¦è´N·|­«½Æ stack push À£¦b­ì¥»³Ì¥ªÃä¨º¤@±ø DFS ªº¤W­±
+			root = root.right;
 		}
 		return true;
 	}
