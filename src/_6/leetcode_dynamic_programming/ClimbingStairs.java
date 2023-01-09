@@ -24,29 +24,34 @@ public class ClimbingStairs {
     public static void main(String[] args) {
         ClimbingStairs cs = new ClimbingStairs();
         int n = 3;
-        cs.climbStairs(n);
+        System.out.println(cs.climbStairs(n));
     }
 
-    private int climbStairs(int n) {
+    Integer[] memo;
+
+    public int climbStairs(int n) {
         /* Solution2: DP dfs
             https://www.geeksforgeeks.org/count-ways-reach-nth-stair/
         */
-        int[] dp = new int[n + 1];
-        for (int i = 0; i < n + 1; i++) {
-            dp[i] = -1;
-        }
-        fib(n, dp);
-        return dp[n];
+        memo = new Integer[n + 1];
+
+        dfs(n);
+
+        return memo[n];
     }
 
-    private int fib(int n, int[] dp) {
-        if (n <= 1)
-            return dp[n] = 1;
-
-        if (dp[n] != -1) {
-            return dp[n];
+    private int dfs(int n) {
+        if (n <= 1) {
+            memo[n] = 1;
+            return 1;
         }
-        dp[n] = fib(n - 1, dp) + fib(n - 2, dp);
-        return dp[n];
+
+        if (memo[n] != null) return memo[n];
+
+        int ret = dfs(n - 1) + dfs(n - 2);
+
+        memo[n] = ret;
+
+        return ret;
     }
 }
