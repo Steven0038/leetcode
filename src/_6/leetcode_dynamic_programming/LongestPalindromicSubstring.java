@@ -16,6 +16,11 @@ package _6.leetcode_dynamic_programming;
  * <p>
  * Input: s = "cbbd"
  * Output: "bb"
+ * <p>
+ * Constraints:
+ * <p>
+ * 1 <= s.length <= 1000
+ * s consist of only digits and English letters.
  */
 public class LongestPalindromicSubstring {
     public static void main(String[] args) {
@@ -58,6 +63,7 @@ public class LongestPalindromicSubstring {
 
     /**
      * 2D DP dfs
+     *
      * @param s input string
      * @param i index from s head
      * @param j index from s tail
@@ -101,8 +107,7 @@ public class LongestPalindromicSubstring {
      * @param s input string
      * @return longest palindrome string in s
      */
-    private String longestPalindrome2(String s) {
-        // 注意数据范围，这里不需要判断字符串为空的corner case了
+    public String longestPalindrome2(String s) {
         for (int i = 0; i < s.length(); i++) { // iterate each char in s, as a palindrome center
             helper(s, i, i); // 奇數個 char
             helper(s, i, i + 1); // 偶數個 char
