@@ -16,19 +16,19 @@ package _3.leetcode_linkedList;
 public class AddTwoNumbers {
     public static void main(String[] args) {
         AddTwoNumbers atn = new AddTwoNumbers();
-        ListNode l1 = new ListNode(2);
-        l1.next = new ListNode(4);
-        l1.next.next = new ListNode(3);
-        ListNode l2 = new ListNode(5);
-        l2.next = new ListNode(6);
-        l2.next.next = new ListNode(4);
+        OldListNode l1 = new OldListNode(2);
+        l1.next = new OldListNode(4);
+        l1.next.next = new OldListNode(3);
+        OldListNode l2 = new OldListNode(5);
+        l2.next = new OldListNode(6);
+        l2.next.next = new OldListNode(4);
 
         atn.addTwoNumbers(l1, l2);
     }
 
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode temp = new ListNode(0); //NOTE:0
-        ListNode result = temp;
+    public OldListNode addTwoNumbers(OldListNode l1, OldListNode l2) {
+        OldListNode temp = new OldListNode(0); //NOTE:0
+        OldListNode result = temp;
 
         int currNum = 0; // 當前累加值
         int decimal = 0; // 進位符, 只會是 0 or 1
@@ -55,7 +55,7 @@ public class AddTwoNumbers {
             //     decimal = 0;
             // }
 
-            temp.next = new ListNode(currNum);
+            temp.next = new OldListNode(currNum);
             temp = temp.next;
 
             currNum = 0; //NOTE

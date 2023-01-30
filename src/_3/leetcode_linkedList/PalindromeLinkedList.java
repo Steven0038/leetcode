@@ -7,14 +7,14 @@ public class PalindromeLinkedList {
 
 	public static void main(String[] args) {
 		PalindromeLinkedList pll = new PalindromeLinkedList();
-		ListNode head = new ListNode(0);
+		OldListNode head = new OldListNode(0);
 		pll.isPalindrome(head);
 	}
 
-	private boolean isPalindrome(ListNode head) {
+	private boolean isPalindrome(OldListNode head) {
 		List<Integer> list = new ArrayList<Integer>();
 		// add each node's value to list until find the last node
-		ListNode curr = head;
+		OldListNode curr = head;
 		while (curr.next != null) {
 			list.add(curr.val);
 			curr = head.next;
@@ -38,8 +38,14 @@ public class PalindromeLinkedList {
 
 }
 
-class ListNode {
+/**
+ * new a ListNode obj.
+ * @deprecated
+ * This class is no longer used.
+ * <p> Use {@link ListNodeUtil} instead.
+ */
+class OldListNode {
      int val;
-     ListNode next;
-     ListNode(int x) { val = x; }
+     OldListNode next;
+     OldListNode(int x) { val = x; }
  }
