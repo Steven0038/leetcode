@@ -42,6 +42,13 @@ public class IntersectionOfTwoLinkedLists {
 
     /**
      * Solution1, 使用距交點的距離, O(m + n) time and use only O(1) memory
+     * 觀察：第一個列表的節點總數+第二個列表的頭部到交點的距離=第二個列表的節點總數+第一個列表的頭部到交點的距離。
+     * 這個想法是採取兩個指針， x 和 y，最初指向第一個和第二個列表的頭部。然後以相同的速度推進兩個指針，直到它們在一個公共節點處相遇。
+     * 什麼時候 x 到達其末尾，將其重定向到第二個列表的頭部。什麼時候 y 到達其末尾，將其轉到第一個列表的頭部。所在的節點 x 滿足 y 是交點節點。
+     * @param headA head of list A
+     * @param headB head of list B
+     * @return ListNode intersection node of A and B
+     * @See https://www.techiedelight.com/zh-tw/find-intersection-point-of-two-linked-lists/
      */
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         // 取兩個指向各自列表頭部的指針
