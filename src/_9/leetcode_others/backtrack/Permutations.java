@@ -23,8 +23,8 @@ public class Permutations {
         int[] nums = new int[]{1, 2, 3};
 //        int[] nums = new int[]{1, 2, 3, 4};
         System.out.println(pm.permute(nums));
-//        System.out.println(pm.permute2(nums));
-//        System.out.println(pm.permute3(nums));
+        System.out.println(pm.permute2(nums));
+        System.out.println(pm.permute3(nums));
         /**
          *                            1      [1,2,3] -> 123   如果 dfs 不做 backtrack,下一步就會變成[1,2,3,4]
          *                            |      [1,2,4] -> 124
@@ -47,6 +47,7 @@ public class Permutations {
      * 無重複序列的全排列
      * 鄰里互換法1
      * 返回所有給定的 array 元素的, 所有可能排序組合的 list
+     * ref.https://segmentfault.com/a/1190000040142137
      *
      * @param nums input array
      * @return List of Permutations
@@ -132,13 +133,13 @@ public class Permutations {
 
     /**
      * 递归函数：
-     *   如果集合所有元素被标记：
-     *       将临时储存添加到结果集中
-     *   否则：
-     *       从集合中未标记的元素中选取一个存储到临时集合中
-     *       标记该元素被使用
-     *       下一层递归函数
-     *       (这层递归结束)标记该元素未被使用
+     * 如果集合所有元素被标记：
+     * 将临时储存添加到结果集中
+     * 否则：
+     * 从集合中未标记的元素中选取一个存储到临时集合中
+     * 标记该元素被使用
+     * 下一层递归函数
+     * (这层递归结束)标记该元素未被使用
      */
     private void dfs(boolean[] visits, int[] nums, List<Integer> team, int index) {
         int len = nums.length;

@@ -35,7 +35,7 @@ public class KthSmallestElementInBST {
 
     public int kthSmallest(TreeNode root, int k) {
         // do buttom-up inorder traversal dfs
-        List<Integer> ret = dfs(root, new ArrayList<Integer>());
+        List<Integer> ret = dfs(root, new ArrayList<>());
 
         return ret.get(k - 1);
     }
