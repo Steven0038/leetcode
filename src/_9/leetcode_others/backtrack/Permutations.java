@@ -1,8 +1,6 @@
 package _9.leetcode_others.backtrack;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -45,7 +43,7 @@ public class Permutations {
 
     /**
      * 無重複序列的全排列
-     * 鄰里互換法1
+     * 交換法, O(n^2), O(n), 20.92%
      * 返回所有給定的 array 元素的, 所有可能排序組合的 list
      * ref.https://segmentfault.com/a/1190000040142137
      *
@@ -83,7 +81,7 @@ public class Permutations {
     }
 
     /**
-     * 鄰里互換法2
+     * 鄰里互換法2, O(n!), 91.28%
      * ref: http://www.noteanddata.com/leetcode-46-Permutations-java-solution-note.html
      */
     public List<List<Integer>> permute2(int[] nums) {
@@ -117,43 +115,45 @@ public class Permutations {
         }
     }
 
-    List<List<Integer>> list;
+
+    List<List<Integer>> results;
+    boolean[] visits;
 
     /**
-     * 回朔法: 效率較差
+     * 回朔法, O(n), 91.28%
      * ref. https://segmentfault.com/a/1190000040142137
      */
     public List<List<Integer>> permute3(int[] nums) {
-        list = new ArrayList<>();//最终的结果
-        List<Integer> team = new ArrayList<>();//回溯过程收集元素
-        boolean[] visits = new boolean[nums.length];//用来标记
-        dfs(visits, nums, team, 0);
-        return list;
+        results = new ArrayList<>(); //最终的结果
+        List<Integer> team = new ArrayList<>(); //回溯过程收集元素
+        visits = new boolean[nums.length]; //用来标记
+        dfs(nums, team, 0);
+        return results;
     }
 
     /**
-     * 递归函数：
-     * 如果集合所有元素被标记：
-     * 将临时储存添加到结果集中
-     * 否则：
-     * 从集合中未标记的元素中选取一个存储到临时集合中
-     * 标记该元素被使用
-     * 下一层递归函数
-     * (这层递归结束)标记该元素未被使用
+     * bottom up backtrack dfs,
+     * 遞迴函數:
+     * 如果 nums 數組中所有元素被標記:  則將 tmp 的排列列表添加到 results,
+     * 否則: 就將 nums 中未標記的元素儲存到 tmp 裡, 並標記為已使用
+     * 進行下一層遞迴函數
+     * (這層遞迴函數結束), 標記該元素未被使用
      */
-    private void dfs(boolean[] visits, int[] nums, List<Integer> team, int index) {
-        int len = nums.length;
-        if (index == len) { // 停止
-            list.add(new ArrayList<>(team));
-        } else
-            for (int i = 0; i < len; i++) {
-                if (visits[i]) //当前数字被用过 当前即不可用
-                    continue;
-                team.add(nums[i]);
-                visits[i] = true;//标记该元素被使用
-                dfs(visits, nums, team, index + 1);
-                visits[i] = false;// 还原
-                team.remove(index);//将结果移除临时集合
-            }
+    private void dfs(int[] nums, List<Integer> tmpTeam, int index) {
+        // base case
+        if (index > nums.length - 1) {
+            results.add(new ArrayList<>(tmpTeam));
+            return;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (visits[i]) // 當前數字已被用過, 即不可用
+                continue;
+            tmpTeam.add(nums[i]);
+            visits[i] = true; // 標記該元素已被使用過
+            dfs(nums, tmpTeam, index + 1); // 進入下一層
+            visits[i] = false; // 還原
+            tmpTeam.remove(index); // 將元素從臨時列表中移除 (backtrack)
+        }
     }
+
 }
