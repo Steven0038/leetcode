@@ -19,6 +19,8 @@ import java.util.*;
  * Output: 5
  * <p>
  * Explanation: One shortest transformation sequence is "hit" -> "hot" -> "dot" -> "dog" -> cog", which is 5 words long.
+ *
+ * @see NetWorkDelayTime Dijsktra
  */
 public class WordLadder {
     public static void main(String[] args) {

@@ -17,6 +17,8 @@ import java.util.*;
  * Input: times = [[2,1,1],[2,3,1],[3,4,1]], n = 4, k = 2
  * <p>
  * Output: 2
+ *
+ * @see WordLadder bfs
  */
 public class NetWorkDelayTime {
     public static void main(String[] args) {

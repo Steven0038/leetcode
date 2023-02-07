@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
  * <p>
  * Constraints:
  * All the integers of nums are unique.
+ *
+ * @see PermutationsII
  */
 public class Permutations {
     public static void main(String[] args) {
@@ -139,20 +141,25 @@ public class Permutations {
      * 進行下一層遞迴函數
      * (這層遞迴函數結束), 標記該元素未被使用
      */
-    private void dfs(int[] nums, List<Integer> tmpTeam, int index) {
+    private void dfs(int[] nums, List<Integer> tmpTeam, int idx) {
         // base case
-        if (index > nums.length - 1) {
+//        if (idx > nums.length - 1) {
+        if (tmpTeam.size() == nums.length) {
             results.add(new ArrayList<>(tmpTeam));
             return;
         }
         for (int i = 0; i < nums.length; i++) {
             if (visits[i]) // 當前數字已被用過, 即不可用
                 continue;
+
             tmpTeam.add(nums[i]);
             visits[i] = true; // 標記該元素已被使用過
-            dfs(nums, tmpTeam, index + 1); // 進入下一層
+
+            dfs(nums, tmpTeam, idx + 1); // 進入下一層
+
             visits[i] = false; // 還原 (backtrack)
-            tmpTeam.remove(index); // 將元素從臨時列表中移除
+//            tmpTeam.remove(idx); // 將元素從臨時列表中移除
+            tmpTeam.remove(tmpTeam.size() - 1); // 將元素從臨時列表中移除
         }
     }
 
