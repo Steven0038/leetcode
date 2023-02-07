@@ -120,13 +120,13 @@ public class Permutations {
     boolean[] visits;
 
     /**
-     * 回朔法, O(n), 91.28%
+     * 回朔法, 去重全排列 O(n), 91.28%
      * ref. https://segmentfault.com/a/1190000040142137
      */
     public List<List<Integer>> permute3(int[] nums) {
-        results = new ArrayList<>(); //最终的结果
-        List<Integer> team = new ArrayList<>(); //回溯过程收集元素
-        visits = new boolean[nums.length]; //用来标记
+        results = new ArrayList<>(); // 最終的結果
+        List<Integer> team = new ArrayList<>(); // 回朔過程蒐集元素
+        visits = new boolean[nums.length]; // 用來標記
         dfs(nums, team, 0);
         return results;
     }
@@ -151,8 +151,8 @@ public class Permutations {
             tmpTeam.add(nums[i]);
             visits[i] = true; // 標記該元素已被使用過
             dfs(nums, tmpTeam, index + 1); // 進入下一層
-            visits[i] = false; // 還原
-            tmpTeam.remove(index); // 將元素從臨時列表中移除 (backtrack)
+            visits[i] = false; // 還原 (backtrack)
+            tmpTeam.remove(index); // 將元素從臨時列表中移除
         }
     }
 
