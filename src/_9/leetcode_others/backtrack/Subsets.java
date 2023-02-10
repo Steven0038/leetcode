@@ -1,6 +1,7 @@
-package _5.leetcode_sort_and_search;
+package _9.leetcode_others.backtrack;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,6 +25,7 @@ public class Subsets {
         int[] nums = new int[]{1, 2, 3};
         System.out.println(s.subsets(nums));
         System.out.println(s.subsets2(nums));
+        System.out.println(s.subsetsTmp(nums));
 
         /**
          *                                   [1,3,4]
@@ -106,6 +108,31 @@ public class Subsets {
             backtrack(i + 1, curr, nums);
             // backtrack
             curr.remove(curr.size() - 1);
+        }
+    }
+
+    /**
+     * general backtrack template of subsets/permutations/combinations
+     * <p>
+     * refer from http://pglost.github.io/blog-theme/leetcode/2015/08/10/leetcode-subset.html
+     */
+    public List<List<Integer>> subsetsTmp(int[] nums) {
+        Arrays.sort(nums); // 題目中要求子集中的元素為非降序排列
+        List<List<Integer>> subs = new ArrayList<>();
+        List<Integer> sub = new ArrayList<>();
+
+        subsetsHelper(nums, 0, sub, subs);
+
+        return subs;
+    }
+
+    // 從 nums 的第 i 個元素開始, 計算包含 sub 的所有子集, 並保存到 subs 中
+    private void subsetsHelper(int[] nums, int pos, List<Integer> sub, List<List<Integer>> subs) {
+        subs.add(sub);
+        for (int i = pos; i < nums.length; i++) { // 實際上是解決子問題, 從 i 開始的每一個元素保存到 sub 中
+            sub.add(nums[i]);
+            subsetsHelper(nums, i + 1, sub, subs);
+            sub.remove(sub.size() - 1);
         }
     }
 }
