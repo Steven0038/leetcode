@@ -128,7 +128,7 @@ public class Subsets {
 
     // 從 nums 的第 i 個元素開始, 計算包含 sub 的所有子集, 並保存到 subs 中
     private void subsetsHelper(int[] nums, int pos, List<Integer> sub, List<List<Integer>> subs) {
-        subs.add(sub);
+        subs.add(new ArrayList<>(sub));
         for (int i = pos; i < nums.length; i++) { // 實際上是解決子問題, 從 i 開始的每一個元素保存到 sub 中
             sub.add(nums[i]);
             subsetsHelper(nums, i + 1, sub, subs);
