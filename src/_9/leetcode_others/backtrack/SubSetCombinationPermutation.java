@@ -73,6 +73,9 @@ public class SubSetCombinationPermutation {
     /**
      * 1-2. 子集: 給定一個可能有重複數字的數組, 返回其所有的子集
      *
+     * Input: nums = [1, 2, 2]
+     * Output: [[], [1], [1, 2], [1, 2, 2], [2], [2, 2]]
+     *
      * @see SubSetII
      */
     public List<List<Integer>> subsetsWithDup(int[] nums) {
@@ -102,6 +105,9 @@ public class SubSetCombinationPermutation {
     /**
      * 2-1 排列: 全排列 , 給定一個數組, 返回其所有可能的排列
      *
+     * Input: nums = [1, 2, 3]
+     * Output: [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]
+     *
      * @see Permutations
      */
     public List<List<Integer>> permute(int[] nums) {
@@ -129,6 +135,9 @@ public class SubSetCombinationPermutation {
 
     /**
      * 2-2 排列: 帶重複元素的排列 , 給定一個具有重複數字的數組, 返回其所有可能的排列
+     *
+     * Input: nums = [1, 2, 2]
+     * Output: [[1, 2, 2], [2, 1, 2], [2, 2, 1]]
      *
      * @see PermutationsII
      */
@@ -164,6 +173,9 @@ public class SubSetCombinationPermutation {
 
     /**
      * 3-1 組合: 給定二個整數 n 和 k, 返回 1..n 中所有可能的 k 個數的組合
+     *
+     * Input: n = 4, k = 2
+     * Output: [[1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]]
      */
     public List<List<Integer>> combine(int n, int k) { // Cn 取 k
         List<List<Integer>> results = new ArrayList<>();
