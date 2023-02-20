@@ -45,7 +45,7 @@ public class SubSetCombinationPermutation {
      * 1-1. 子集: 給定一個不重複的整數數組, 返回其所有的子集
      * <p>
      * Input: nums = [1,2,3]
-     * Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+     * Output: [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]
      *
      * @see Subsets
      */
@@ -62,10 +62,10 @@ public class SubSetCombinationPermutation {
     // 從 nums 的第 i 個元素開始, 計算包含 sub 的所有子集, 並保存到 subs 中
     private void subsetsHelper(int[] nums, int posIdx, List<Integer> sub, List<List<Integer>> subs) {
         subs.add(new ArrayList<>(sub));
-
-        for (int i = posIdx; i < nums.length; i++) { // 實際上是解決子問題, 從 i 開始的每一個元素保存到 sub 中
+        // 實際上是解決子問題, 從 i 開始的每一個元素保存到 sub 中
+        for (int i = posIdx; i < nums.length; i++) { // 組合/子集不看順序, 為了避免重複, 使用下標 posIdx 保存當前位置, 下次只能遍歷後面的數字
             sub.add(nums[i]);
-            subsetsHelper(nums, i + 1, sub, subs);
+            subsetsHelper(nums, i + 1, sub, subs); // NOTE: postIdx + 1
             sub.remove(sub.size() - 1);
         }
     }
@@ -89,10 +89,11 @@ public class SubSetCombinationPermutation {
     }
 
     private void subsetsWithDupHelper(int[] nums, int posIdx, List<Integer> sub, List<List<Integer>> subs) {
-        subs.add(new ArrayList<>(sub));
+        subs.add(new ArrayList<>(sub)); // base case
 
-        for (int i = posIdx; i < nums.length; i++) {
-            if (i != posIdx && nums[i] == nums[i - 1]) {
+        for (int i = posIdx; i < nums.length; i++) { // iterate
+            // continue to manipulate duplicate case
+            if (i != posIdx && nums[i] == nums[i - 1]) { // NOTE: i = posIdx 即 case [1, 2, 2]
                 continue;
             }
 
@@ -125,7 +126,9 @@ public class SubSetCombinationPermutation {
             return;
         }
         for (int num : nums) {
-            if (list.contains(num)) continue;
+            if (list.contains(num)) {
+                continue;
+            }
 
             list.add(num);
             permuteHelper(nums, list, result);
