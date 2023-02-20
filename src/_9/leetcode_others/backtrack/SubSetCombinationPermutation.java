@@ -72,7 +72,7 @@ public class SubSetCombinationPermutation {
 
     /**
      * 1-2. 子集: 給定一個可能有重複數字的數組, 返回其所有的子集
-     *
+     * <p>
      * Input: nums = [1, 2, 2]
      * Output: [[], [1], [1, 2], [1, 2, 2], [2], [2, 2]]
      *
@@ -105,7 +105,7 @@ public class SubSetCombinationPermutation {
 
     /**
      * 2-1 排列: 全排列 , 給定一個數組, 返回其所有可能的排列
-     *
+     * <p>
      * Input: nums = [1, 2, 3]
      * Output: [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]
      *
@@ -114,31 +114,34 @@ public class SubSetCombinationPermutation {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
         List<Integer> list = new ArrayList<>();
+        boolean[] visited = new boolean[nums.length];
 
-        permuteHelper(nums, list, result);
+        Arrays.sort(nums);
+
+        permuteHelper(nums, list, result, visited);
 
         return result;
     }
 
-    private void permuteHelper(int[] nums, List<Integer> list, List<List<Integer>> result) {
+    private void permuteHelper(int[] nums, List<Integer> list, List<List<Integer>> result, boolean[] visited) {
         if (list.size() == nums.length) {
             result.add(new ArrayList<>(list));
             return;
         }
-        for (int num : nums) {
-            if (list.contains(num)) {
-                continue;
-            }
+        for (int i = 0; i < nums.length; i++) {
+            if (visited[i]) continue;
 
-            list.add(num);
-            permuteHelper(nums, list, result);
+            list.add(nums[i]);
+            visited[i] = true;
+            permuteHelper(nums, list, result, visited);
             list.remove(list.size() - 1);
+            visited[i] = false;
         }
     }
 
     /**
      * 2-2 排列: 帶重複元素的排列 , 給定一個具有重複數字的數組, 返回其所有可能的排列
-     *
+     * <p>
      * Input: nums = [1, 2, 2]
      * Output: [[1, 2, 2], [2, 1, 2], [2, 2, 1]]
      *
@@ -162,9 +165,9 @@ public class SubSetCombinationPermutation {
         }
 
         for (int i = 0; i < nums.length; i++) {
-            if (visited[i] || (i != 0 && nums[i] == nums[i - 1] && !visited[i - 1])) {
+            if (visited[i] || (i != 0 && nums[i] == nums[i - 1] && !visited[i - 1]))
                 continue;
-            }
+
             visited[i] = true;
             list.add(nums[i]);
             permuteUniqueHelper(nums, list, result, visited);
@@ -176,7 +179,7 @@ public class SubSetCombinationPermutation {
 
     /**
      * 3-1 組合: 給定二個整數 n 和 k, 返回 1..n 中所有可能的 k 個數的組合
-     *
+     * <p>
      * Input: n = 4, k = 2
      * Output: [[1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]]
      */
