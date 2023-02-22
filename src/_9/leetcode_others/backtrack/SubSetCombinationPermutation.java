@@ -165,6 +165,8 @@ public class SubSetCombinationPermutation {
         }
 
         for (int i = 0; i < nums.length; i++) {
+            // [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]] to
+            // [[1, 2, 2], [2, 1, 2], [2, 2, 1]]
             if (visited[i] || (i != 0 && nums[i] == nums[i - 1] && !visited[i - 1]))
                 continue;
 
@@ -178,7 +180,7 @@ public class SubSetCombinationPermutation {
 
 
     /**
-     * 3-1 組合: 給定二個整數 n 和 k, 返回 1..n 中所有可能的 k 個數的組合
+     * 3-1 組合: 給定二個整數 n 和 k, 返回 1..n 中所有可能的 k 個數的組合 86%
      * <p>
      * Input: n = 4, k = 2
      * Output: [[1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]]
@@ -191,16 +193,15 @@ public class SubSetCombinationPermutation {
             nums[i] = i + 1;
         }
 
-        dfs(nums, -1, k, results, visited, n);
+        dfs(nums, 0, k, results, visited);
         return results;
     }
 
-    private void dfs(int[] nums, int idx, int count, List<List<Integer>> results, boolean[] visited, int n) {
+    private void dfs(int[] nums, int idx, int count, List<List<Integer>> results, boolean[] visited) {
         if (count == 0) { // k 個元素滿
             List<Integer> list = new ArrayList<>();
-            for (int i = 0; i < n; i++) {
+            for (int i = 0; i < nums.length; i++) {
                 if (visited[i]) {
-//                    list.add(i + 1);
                     list.add(nums[i]);
                 }
             }
@@ -209,12 +210,36 @@ public class SubSetCombinationPermutation {
             return;
         }
 
-        for (int i = idx + 1; i < n; i++) { // 只能在 index 後遍歷,回朔向下
+        for (int i = idx; i < nums.length; i++) { // 只能在 index 後遍歷,回朔向下
             visited[i] = true;
-            dfs(nums, i, count - 1, results, visited, n);
+            dfs(nums, i + 1, count - 1, results, visited);
             visited[i] = false; // 還原 backtrack
         }
     }
+
+    // 94%
+    public List<List<Integer>> combine1(int n, int k) {
+        List<List<Integer>> combinations = new ArrayList<>();
+        List<Integer> combineList = new ArrayList<>();
+        backtracking(combineList, combinations, 1, k, n);
+        return combinations;
+    }
+
+    private void backtracking(List<Integer> combineList, List<List<Integer>> combinations, int start, int k, final int n) {
+        if (k == 0) {
+            combinations.add(new ArrayList<>(combineList));
+            return;
+        }
+        for (int i = start; i <= n - k + 1; i++) {  // 剪枝
+            combineList.add(i);
+            backtracking(combineList, combinations, i + 1, k - 1, n);
+            combineList.remove(combineList.size() - 1);
+        }
+    }
+
+
+    // TODO Combination Sum, Letter Combinations of a Phone Number, Palindrome Partitioning, Restore IP Addresses
+    // https://pdai.tech/md/algorithm/alg-core-backtracking.html#%E5%AD%90%E9%9B%86
 
 
 }
