@@ -38,6 +38,22 @@ public class SubSetCombinationPermutation {
                 - 重複子集
                 - 不重複子集
          */
+
+        /*
+            模板差異
+                Subsets:
+                    - 用 idx 紀錄下一個遞迴開始的位置
+                    - 每次遞迴都直接加入元素 (子集不需要全員到齊)
+                Permutation:
+                    - 前後有差,並且需要抓滿才放進 ret
+                    - 需要 bool 數組紀錄是否已訪問
+                    - 需要 early return (抓滿)
+                Combination
+                    - 需要自己依照給定的 Cn 取 k, 用 n and k 自己建數組 nums
+                    - 不需要抓滿,數量取決於給定的 k (計數), 但也不計前後順序
+                    - 需要 early return (計數)
+                    - 可以用 bool 數組也可以不用數組紀錄,
+         */
     }
 
 
@@ -180,7 +196,8 @@ public class SubSetCombinationPermutation {
 
 
     /**
-     * 3-1 組合: 給定二個整數 n 和 k, 返回 1..n 中所有可能的 k 個數的組合 86%
+     * 3-1 組合: 給定二個整數 n 和 k, 返回 1..n 中所有可能的 k 個數的組合
+     * Solution1: 跟 permutation 很像, 86%
      * <p>
      * Input: n = 4, k = 2
      * Output: [[1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]]
@@ -217,7 +234,9 @@ public class SubSetCombinationPermutation {
         }
     }
 
-    // 94%
+    /**
+     * Solution2: 跟 subset 很像, 94%
+     */
     public List<List<Integer>> combine1(int n, int k) {
         List<List<Integer>> combinations = new ArrayList<>();
         List<Integer> combineList = new ArrayList<>();
