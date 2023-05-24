@@ -40,7 +40,7 @@ public class DailyTemperatures {
         int len = tmpArr.length;
         int[] res = new int[len];
         // <Index of tmp array>
-        Deque<Integer> idxStack = new ArrayDeque<>();
+        Deque<Integer> idxStack = new ArrayDeque<>(); // Stack<Integer> idxStack = new Stack<>();
         for (int i = len - 1; i >= 0; i--) { // 從後開始遍歷數列
             while (!idxStack.isEmpty() && tmpArr[i] >= tmpArr[idxStack.peek()]) {
                 idxStack.pop(); // pop 掉比當前 T[i] 小的 元素 index
