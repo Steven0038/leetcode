@@ -46,13 +46,20 @@ public class TopK_FrequentElements {
 //        }
         maxHeap.addAll(ckMap.entrySet());
 
-        List<Integer> res = new ArrayList<>();
-        while(res.size() < k) {
-            Map.Entry<Integer, Integer> entry = maxHeap.poll();
-            assert entry != null;
-            res.add(entry.getKey());
+//        List<Integer> res = new ArrayList<>();
+//        while(res.size() < k) {
+//            Map.Entry<Integer, Integer> entry = maxHeap.poll();
+//            assert entry != null;
+//            res.add(entry.getKey());
+//        }
+//
+//        return res.stream().mapToInt(Integer::intValue).toArray();
+        int[] ret = new int[k];
+        for (int i = 0; i < k; i++) {
+            int n = Objects.requireNonNull(maxHeap.poll()).getKey();
+            ret[i] = n;
         }
 
-        return res.stream().mapToInt(Integer::intValue).toArray();
+        return ret;
     }
 }
