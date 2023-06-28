@@ -90,7 +90,7 @@ public class KthLargestElementsInAnArray {
      */
     public int findKthLargest2(int[] nums, int k) {
         if (nums.length == 0) return 0;
-        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>(); // 預設是最小堆
 
         for (int num : nums) {
             minHeap.offer(num);

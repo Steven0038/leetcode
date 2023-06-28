@@ -19,31 +19,30 @@ import java.util.*;
 public class TopK_FrequentElements {
     public static void main(String[] args) {
         TopK_FrequentElements tke = new TopK_FrequentElements();
-        int[] nums = new int[] {1,1,1,2,2,3};
+        int[] nums = new int[]{1, 1, 1, 2, 2, 3};
         int k = 2;
         int[] ret = tke.topKFrequent(nums, k);
-        for(int i : ret) {
+        for (int i : ret) {
             System.out.println(i);
         }
     }
 
     /**
      * get the most K frequent count elements in input array
+     *
      * @param nums input array
-     * @param k number of element to look up
+     * @param k    number of element to look up
      * @return int array
      */
     public int[] topKFrequent(int[] nums, int k) {
         Map<Integer, Integer> ckMap = new HashMap<>();
-        for(int n : nums) {
+        for (int n : nums) {
             ckMap.put(n, ckMap.getOrDefault(n, 0) + 1);
         }
 
         PriorityQueue<Map.Entry<Integer, Integer>> maxHeap = new PriorityQueue<>(
                 (a, b) -> b.getValue() - a.getValue()); //
-//        for(Map.Entry<Integer, Integer> entry : ckMap.entrySet()) {
-//            maxHeap.add(entry);
-//        }
+//        for(Map.Entry<Integer, Integer> entry : ckMap.entrySet()) { maxHeap.add(entry);}
         maxHeap.addAll(ckMap.entrySet());
 
 //        List<Integer> res = new ArrayList<>();
@@ -52,8 +51,8 @@ public class TopK_FrequentElements {
 //            assert entry != null;
 //            res.add(entry.getKey());
 //        }
-//
 //        return res.stream().mapToInt(Integer::intValue).toArray();
+
         int[] ret = new int[k];
         for (int i = 0; i < k; i++) {
             int n = Objects.requireNonNull(maxHeap.poll()).getKey();
