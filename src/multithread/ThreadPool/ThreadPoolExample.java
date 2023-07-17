@@ -5,7 +5,13 @@ import java.util.concurrent.*;
 
 public class ThreadPoolExample {
     public static void main(String[] args) throws InterruptedException, ExecutionException {
-        ExecutorService executor = Executors.newFixedThreadPool(5);
+//        ExecutorService executor = Executors.newFixedThreadPool(5);
+        BlockingQueue<Runnable> queues = new LinkedBlockingQueue<>();
+        ExecutorService executor = new ThreadPoolExecutor(5,
+                10,
+                1000,
+                TimeUnit.MINUTES,
+                queues);
 
         Future<Integer> future = executor.submit(new Task());
 
