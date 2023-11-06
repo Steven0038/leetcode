@@ -59,7 +59,8 @@ public class CheapestFlightsWithinKStops {
         // build graph
         Map<Integer, List<Cell>> graph = new HashMap<>();
         for (int[] flight : flights)
-            graph.computeIfAbsent(flight[0], value -> new ArrayList<>()).add(new Cell(flight[1], flight[2], 0));
+            graph.computeIfAbsent(flight[0], value -> new ArrayList<>())
+                    .add(new Cell(flight[1], flight[2], 0));
 
 //        int[] stops = new int[n]; Arrays.fill(stops, Integer.MAX_VALUE);
         Map<Integer, Integer> visited = new HashMap<>();

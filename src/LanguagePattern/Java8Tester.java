@@ -1,5 +1,7 @@
 package LanguagePattern;
 
+import java.util.List;
+
 public class Java8Tester {
    public static void main(String[] args){
       Java8Tester tester = new Java8Tester();
@@ -31,6 +33,10 @@ public class Java8Tester {
 
       greetService1.sayMessage("Runoob");
       greetService2.sayMessage("Google");
+
+      // new a list and enhanced print elements
+      List<Integer> ls = List.of(1,2,3,4);
+      ls.forEach(System.out::println);
    }
 
    interface MathOperation {
